@@ -187,7 +187,7 @@ Use iauto-pay_pay_stablecoin tool to send 0.01 USDC to 0x1a85156c2943b63febeee78
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0) - see [LICENSE](LICENSE) file for details.
 
 ## Repository
 
