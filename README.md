@@ -39,7 +39,7 @@ iautopay-mcp
 
 ```bash
 npm install @newblock/iautopay-mcp
-node node_modules/@newblock/iautopay-mcp/dist/server.js
+node node_modules/@newblock/iautopay-mcp/dist/mcp-server-bundle.js
 ```
 
 ## Configuration

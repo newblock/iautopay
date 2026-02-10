@@ -3,22 +3,22 @@
   "version": "0.1.0",
   "description": "MCP Server for iAutoPay with x402 payment protocol and EIP-3009 support | 基于 iAutoPay 的 x402 支付协议和 EIP-3009 支持的 MCP 服务器",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "dist/mcp-server-bundle.js",
   "bin": {
-    "iautopay-mcp": "dist/server.js"
+    "iautopay-mcp": "dist/mcp-server-bundle.js"
   },
   "files": [
-    "dist",
+    "dist/mcp-server-bundle.js",
     "README.md",
     "README.zh-CN.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "bun build src/server.ts --target node --format esm --outfile dist/mcp-server-bundle.js --external @x402/core --external @x402/evm",
     "dev": "tsx src/server.ts",
-    "prepack": "npm run build",
+    "prepack": "bun run build",
     "test": "vitest",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "bun run build"
   },
   "keywords": [
     "mcp",

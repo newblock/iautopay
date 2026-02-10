@@ -15,14 +15,16 @@ test/
 .git/
 .gitignore
 
-# Documentation (keep README.md)
+# Documentation (keep README.md and README.zh-CN.md)
 docs/
 *.md
 !README.md
+!README.zh-CN.md
 
 # Environment configuration
 .env
 .env.*
+!.env.example
 
 # IDE
 .vscode/
@@ -37,3 +39,7 @@ docs/
 # Temporary files
 node_modules/
 coverage/
+
+# Keep only the bundled file, exclude other dist files
+dist/server.js
+dist/check_balance.js
