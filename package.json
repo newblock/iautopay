@@ -18,7 +18,7 @@
     "dev": "tsx src/server.ts",
     "prepack": "bun run build",
     "test": "vitest",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "npm run build:npm"
   },
   "keywords": [
     "mcp",
