@@ -1,13 +1,13 @@
 # @newblock/iautopay-mcp
 
-MCP (Model Context Protocol) Server for iAutoPay with x402 payment protocol and EIP-3009 support.
+iAutoPay is an MCP service that enables AI agents to automatically pay for purchases. It currently runs on the Base chain (operated by Coinbase) and supports USDC payments. It can be used by intelligent agents to automatically purchase paid AI-related services and data.
 
 ## Features
 
-- 🚀 **Autonomous Payments**: Pay stablecoins using EIP-3009 transferWithAuthorization
-- 💳 **USDC Support**: Works with USDC on Base Mainnet and Base Sepolia
+- 🚀 **Autonomous Payments**: AI agents can automatically purchase paid services and data
+- 💳 **USDC Support**: Pay with USDC on the Base blockchain
 - 🔐 **Secure**: Environment variable based configuration for private keys
-- 🤖 **AI-Ready**: Full MCP integration for Claude Code and OpenCode
+- 🤖 **AI-Native**: Full MCP integration designed for AI agents
 - 📊 **Event Management**: Register, resolve, and get attestations for events
 
 ## Quick Start with npx (Recommended)
