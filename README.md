@@ -149,6 +149,8 @@ Purchase GLM4.7 LLM APIKEY.
 
 ## Environment Configuration
 
+For detailed usage examples and command aliases, see [Usage Guide](USAGE_GUIDE.md).
+
 The MCP server supports two environments configured in `src/server.ts`:
 
 ### Production (Base Mainnet)
