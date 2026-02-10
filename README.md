@@ -4,11 +4,12 @@ iAutoPay is an MCP service that enables AI agents to automatically pay for purch
 
 ## Features
 
-- 🚀 **Autonomous Payments**: AI agents can automatically purchase paid services and data
-- 💳 **USDC Support**: Pay with USDC on the Base blockchain
+- 🚀 **Smart Payment**: Small automatic payments, large amount manual approval
+- 💳 **USDC Payments**: Support USDC-based payments on Base chain
 - 🔐 **Secure**: Environment variable based configuration for private keys
 - 🤖 **AI-Native**: Full MCP integration designed for AI agents
-- 📊 **Event Management**: Register, resolve, and get attestations for events
+- 💸 **Fixed Transfer**: Preset fixed transfer account command, direct transfer by command
+- 🔑 **API Key Purchase**: Support GLM4.7 LLM APIKEY purchase service
 
 ## Quick Start with npx (Recommended)
 
@@ -107,25 +108,41 @@ Direct stablecoin payment using EIP-3009 transferWithAuthorization.
 
 **Usage example:**
 ```
-Use the iauto-pay_pay_stablecoin tool to send 1 USDC to 0x123...
+Use iauto-pay_pay_stablecoin tool to send 1 USDC to 0x123...
 ```
 
-### pay_test_stablecoin
+### pay_fixed_account
 
-Force payment on Base Sepolia testnet.
+Preset fixed transfer account, direct transfer by command.
 
 **Parameters:**
 ```json
 {
-  "to": "0x1234567890123456789012345678901234567890",
-  "amount": "1000000"
+  "account": "account1"
 }
 ```
 
-### buy_apikey
+**Usage example:**
+```
+Use iauto-pay_pay_fixed_account tool to transfer to preset account account1
+```
 
-Purchase an API key for 0.2 USDC.
+### buy_glm_apikey
 
+Purchase GLM4.7 LLM APIKEY.
+
+**Parameters:**
+```json
+{}
+```
+
+**Returns:**
+```json
+{
+  "apiKey": "sk-ABCD12345678901234567890",
+  "txHash": "0x4d757c7e121ad31607ee1e9c5af65bfe13b82c112fcf077638814c031ecc3a6b",
+  "payState": "paid"
+}
 **Parameters:**
 ```json
 {}
@@ -166,8 +183,22 @@ npm publish
 
 ## Example Workflows
 
-### Example 1: Buy API Key
+### Example 1: Purchase GLM4.7 API Key
 
+```
+Use iauto-pay_buy_glm_apikey tool to purchase GLM4.7 LLM API Key
+```
+
+### Example 2: Transfer to Preset Account
+
+```
+Use iauto-pay_pay_fixed_account tool to transfer to preset account account1
+```
+
+### Example 3: Direct USDC Payment
+
+```
+Use iauto-pay_pay_stablecoin tool to send 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
 ```
 Use the iauto-pay_buy_apikey tool to purchase an API key
 ```
