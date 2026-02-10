@@ -1,7 +1,7 @@
 {
-  "name": "@newblock/iautopay-mcp-server",
+  "name": "@newblock/iautopay-mcp",
   "version": "0.1.0",
-  "description": "MCP Server for iAutoPay with x402 payment protocol and EIP-3009 support",
+  "description": "MCP Server for iAutoPay with x402 payment protocol and EIP-3009 support | 基于 iAutoPay 的 x402 支付协议和 EIP-3009 支持的 MCP 服务器",
   "type": "module",
   "main": "dist/server.js",
   "bin": {
@@ -10,6 +10,7 @@
   "files": [
     "dist",
     "README.md",
+    "README.zh-CN.md",
     "LICENSE"
   ],
   "scripts": {

@@ -1,4 +1,4 @@
-# Deployment Guide for @newblock/iautopay-mcp-server
+# Deployment Guide for @newblock/iautopay-mcp
 
 ## Prerequisites
 
@@ -11,20 +11,20 @@
 ### Option 1: npx (Recommended - No Installation Required)
 
 ```bash
-npx @newblock/iautopay-mcp-server
+npx @newblock/iautopay-mcp
 ```
 
 ### Option 2: Install as Dependency
 
 ```bash
-npm install @newblock/iautopay-mcp-server
+npm install @newblock/iautopay-mcp
 ```
 
 ### Option 3: Global Install
 
 ```bash
-npm install -g @newblock/iautopay-mcp-server
-iautopay-mcp
+npm install -g @newblock/iautopay-mcp
+@newblock/iautopay-mcp
 ```
 
 ## Configuration
@@ -45,7 +45,7 @@ Add to `opencode.json`:
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "@newblock/iautopay-mcp-server"],
+      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
@@ -64,7 +64,7 @@ Add to `~/.claude/claude_desktop_config.json`:
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["@newblock/iautopay-mcp-server"],
+      "args": ["@newblock/iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }
@@ -93,7 +93,7 @@ npm login
 ### 3. Verify Package Name Availability
 
 ```bash
-npm view @newblock/iautopay-mcp-server
+npm view @newblock/iautopay-mcp
 # Should return "404 Not Found" if name is available
 ```
 
@@ -194,7 +194,7 @@ npm login
 **Solution:** Update package.json with a unique name:
 ```json
 {
-  "name": "@newblock/iautopay-mcp-server-unique"
+  "name": "@newblock/iautopay-mcp-unique"
 }
 ```
 
@@ -283,7 +283,7 @@ npm publish
 
 - GitHub Issues: https://github.com/newblock/iautopay/issues
 - Documentation: https://github.com/newblock/iautopay#readme
-- npm Package: https://www.npmjs.com/package/@newblock/iautopay-mcp-server
+- npm Package: https://www.npmjs.com/package/@newblock/iautopay-mcp
 
 ## License
 

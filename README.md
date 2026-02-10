@@ -1,4 +1,4 @@
-# @newblock/iautopay-mcp-server
+# @newblock/iautopay-mcp
 
 MCP (Model Context Protocol) Server for iAutoPay with x402 payment protocol and EIP-3009 support.
 
@@ -15,7 +15,7 @@ MCP (Model Context Protocol) Server for iAutoPay with x402 payment protocol and 
 No installation required! Just run:
 
 ```bash
-npx @newblock/iautopay-mcp-server
+npx @newblock/iautopay-mcp
 ```
 
 This will automatically download and cache the package.
@@ -25,21 +25,21 @@ This will automatically download and cache the package.
 ### Option 1: npx (Recommended)
 
 ```bash
-npx @newblock/iautopay-mcp-server
+npx @newblock/iautopay-mcp
 ```
 
 ### Option 2: Global Install
 
 ```bash
-npm install -g @newblock/iautopay-mcp-server
+npm install -g @newblock/iautopay-mcp
 iautopay-mcp
 ```
 
 ### Option 3: Project Dependency
 
 ```bash
-npm install @newblock/iautopay-mcp-server
-node node_modules/@newblock/iautopay-mcp-server/dist/server.js
+npm install @newblock/iautopay-mcp
+node node_modules/@newblock/iautopay-mcp/dist/server.js
 ```
 
 ## Configuration
@@ -66,7 +66,7 @@ Add to your `opencode.json`:
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "@newblock/iautopay-mcp-server"],
+      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
@@ -85,7 +85,7 @@ Add to your `~/.claude/claude_desktop_config.json`:
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["@newblock/iautopay-mcp-server"],
+      "args": ["@newblock/iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }
