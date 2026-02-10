@@ -43,3 +43,4 @@ coverage/
 # Keep only the bundled file, exclude other dist files
 dist/server.js
 dist/check_balance.js
+dist/mcp-server-bundle.js
