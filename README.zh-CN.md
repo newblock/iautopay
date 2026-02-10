@@ -16,7 +16,7 @@ iAutoPay 是一个让智能体自动进行支付购买的 MCP 服务，当前使
 无需安装！直接运行：
 
 ```bash
-npx @newblock/iautopay-mcp
+npx iautopay-mcp
 ```
 
 这将自动下载并缓存该包。
@@ -83,7 +83,7 @@ export BUYER_PRIVATE_KEY="0x..."
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["@newblock/iautopay-mcp"],
+      "args": ["iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }

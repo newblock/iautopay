@@ -1,4 +1,4 @@
-# @newblock/iautopay-mcp
+# iautopay-mcp
 
 iAutoPay is an MCP service that enables AI agents to automatically pay for purchases. It currently runs on the Base chain (operated by Coinbase) and supports USDC payments. It can be used by intelligent agents to automatically purchase paid AI-related services and data.
 
@@ -16,7 +16,7 @@ iAutoPay is an MCP service that enables AI agents to automatically pay for purch
 No installation required! Just run:
 
 ```bash
-npx @newblock/iautopay-mcp
+npx iautopay-mcp
 ```
 
 This will automatically download and cache the package.
@@ -26,7 +26,7 @@ This will automatically download and cache the package.
 ### Option 1: npx (Recommended)
 
 ```bash
-npx @newblock/iautopay-mcp
+npx iautopay-mcp
 ```
 
 ### Option 2: Global Install
@@ -83,7 +83,7 @@ Add to your `~/.claude/claude_desktop_config.json`:
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["@newblock/iautopay-mcp"],
+      "args": ["iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }
