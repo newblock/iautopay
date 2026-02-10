@@ -131,8 +131,31 @@ export BUYER_PRIVATE_KEY="0x..."
 }
 ```
 
+## 环境配置
+
 如需详细的使用说明和命令别名，请查看[使用指南](USAGE_GUIDE.zh-CN.md)。
 
+MCP 服务器支持两种环境，在 `src/server.ts` 中配置：
+
+### 生产环境 (Production - Base Mainnet)
+- Chain ID: 8453
+- RPC URL: https://mainnet.base.org
+- USDC Address: 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
+- Token Name: "USD Coin"
+
+### 开发环境 (Development - Base Sepolia)
+- Chain ID: 84532
+- RPC URL: https://sepolia.base.org
+- USDC Address: 0x036CbD53842c5426634e7929541eC2318f3dCF7e
+- Token Name: "USDC"
+
+要切换环境，请修改 `src/server.ts` 中的 `CUR_ENV` 并重新构建：
+
+```bash
+# 编辑 src/server.ts: const CUR_ENV: 'dev' | 'prod' = 'prod';
+npm run build
+npm publish
+```
 
 ## 示例工作流
 
@@ -142,7 +165,11 @@ export BUYER_PRIVATE_KEY="0x..."
 使用 iauto-pay_buy_glm_apikey 工具购买 GLM4.7 LLM 的 API Key
 ```
 
-如需详细的使用说明和命令别名，请查看[使用指南](USAGE_GUIDE.zh-CN.md)。
+### 示例 2：直接 USDC 支付
+
+```
+使用 iauto-pay_pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 发送 0.01 USDC
+```
 
 ## 系统要求
 

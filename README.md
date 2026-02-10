@@ -170,14 +170,6 @@ Use iauto-pay_buy_glm_apikey tool to purchase GLM4.7 LLM API Key
 ```
 Use iauto-pay_pay_stablecoin tool to send 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
 ```
-Use the iauto-pay_buy_apikey tool to purchase an API key
-```
-
-### Example 2: Send Payment
-
-```
-Use the iauto-pay_pay_stablecoin tool to send 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
-```
 
 ## Requirements
 
