@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "iauto-pay": {
+      "type": "local",
+      "command": ["npx", "-y", "@newblock/iautopay-mcp-server"],
+      "enabled": true,
+      "environment": {
+        "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
+      }
+    }
+  }
+}
