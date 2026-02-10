@@ -29,7 +29,7 @@ import { privateKeyToAccount } from "viem/accounts";
 // Hardcoded Configuration (no .env dependency)
 // ============================================================================
 
-const CUR_ENV: 'dev' | 'prod' = 'prod';
+const CUR_ENV: 'dev' | 'prod' = 'dev';
 
 const CONFIG = {
   // User's private key for signing payments (provided via opencode.json environment)
@@ -80,6 +80,7 @@ const payTestStablecoinInput = z.object({
   amount: z.string().min(1),
 });
 const buyApikeyInput = z.object({});
+const getInfoInput = z.object({});
 
 const buyerAccount = privateKeyToAccount(CONFIG.BUYER_PRIVATE_KEY as `0x${string}`);
 const publicClient = createPublicClient({
@@ -299,9 +300,22 @@ async function payStablecoin(params: {
     throw new Error(`Transfer failed (${networkInfo}): ${error}`);
   }
  
-  const result = await transferRes.json();
+  const result = await transferRes.json() as object;
   console.log(`[PAY_STABLECOIN] Transfer successful:`, result);
-  return result;
+  
+  const deductedAmount = amountNumber.toFixed(6);
+  const currentBalance = (balanceNumber - amountNumber).toFixed(6);
+  
+  return {
+    ...result,
+    from: buyerAccount.address,
+    to: params.to,
+    amount: `${amountNumber.toFixed(6)} USDC`,
+    asset: params.asset,
+    network: params.isTestnet ? "Testnet (Base Sepolia)" : "Mainnet (Base)",
+    deductedAmount: `${deductedAmount} USDC`,
+    currentBalance: `${currentBalance} USDC`
+  };
 }
 
 const server = new Server(
@@ -324,8 +338,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       },
       {
         name: "buy_apikey",
-        description: "Pay 0.2U stablecoin to buy an API key (sk-RxmFQ2cLfBaefDFfkYlEGY51E74pl5h06bAHbF41vy******) (Uses configured network)",
+        description: "Pay stablecoin to buy an API key (Uses configured network)",
         inputSchema: zodToJsonSchema(buyApikeyInput),
+      },
+      {
+        name: "get_info",
+        description: "Get iAutoPay server information including API key stock, price, network configuration",
+        inputSchema: zodToJsonSchema(getInfoInput),
       },
     ],
   };
@@ -342,6 +361,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         to: parsed.to,
         amount: parsed.amount,
         asset: CURRENT_USDC,
+        isTestnet: (CUR_ENV as string) === 'dev',
       });
       return { content: [{ type: "text", text: JSON.stringify(result) }] };
     } catch (error) {
@@ -356,8 +376,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const result = await payStablecoin({
         to: parsed.to,
         amount: parsed.amount,
-        asset: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-        isTestnet: true,
+        asset: CURRENT_USDC,
+        isTestnet: (CUR_ENV as string) === 'dev',
       });
       return { content: [{ type: "text", text: JSON.stringify(result) }] };
     } catch (error) {
@@ -383,11 +403,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     ]);
     
     const balanceNumber = Number(balance) / (10 ** Number(decimals));
-    const priceNumber = 0.2;
-    
-    if (balanceNumber < priceNumber) {
-      throw new Error(`Insufficient balance: required ${priceNumber.toFixed(6)} USDC, available ${balanceNumber.toFixed(6)} USDC`);
-    }
     
     const buyRes = await fetch(`${FACT_API_URL}/v1/buy-apikey`, {
       method: "POST",
@@ -404,6 +419,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         errorData.payment ?? errorData.paymentRequirements ?? errorData.requirements ?? errorData
       );
       
+      const priceNumber = Number(requirements.price) / 1e6;
+      
+      if (balanceNumber < priceNumber) {
+        throw new Error(`Insufficient balance: required ${priceNumber.toFixed(6)} USDC, available ${balanceNumber.toFixed(6)} USDC`);
+      }
+      
       const signaturePayload = await buildPaymentSignature(requirements);
       
       const retryRes = await fetch(`${FACT_API_URL}/v1/buy-apikey`, {
@@ -419,8 +440,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         throw new Error(`Buy API key failed: ${error}`);
       }
 
-      const result = await retryRes.json();
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      const result = await retryRes.json() as object;
+      
+      return { 
+        content: [{ 
+          type: "text", 
+          text: JSON.stringify({
+            ...result,
+            price: `${priceNumber.toFixed(6)} USDC`,
+            network: requirements.network,
+            asset: requirements.asset,
+            deductedAmount: `${priceNumber.toFixed(6)} USDC`,
+            currentBalance: `${(balanceNumber - priceNumber).toFixed(6)} USDC`
+          }) 
+        }] 
+      };
     }
 
     if (!buyRes.ok) {
@@ -428,8 +462,34 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       throw new Error(`Buy API key failed: ${error}`);
     }
 
-    const result = await buyRes.json();
-    return { content: [{ type: "text", text: JSON.stringify(result) }] };
+    // Bypass flow (no payment)
+    const result = await buyRes.json() as object;
+    return { 
+      content: [{ 
+        type: "text", 
+        text: JSON.stringify({
+          ...result,
+          deductedAmount: `0.000000 USDC`,
+          currentBalance: `${balanceNumber.toFixed(6)} USDC`
+        }) 
+      }] 
+    };
+  }
+
+  if (name === "get_info") {
+    const parsed = getInfoInput.parse(args);
+    
+    try {
+      const res = await fetch(`${FACT_API_URL}/info`);
+      if (!res.ok) {
+        const error = await res.text();
+        throw new Error(`Get info failed: ${error}`);
+      }
+      const result = await res.json();
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (error) {
+      throw error;
+    }
   }
 
   throw new Error(`Unknown tool: ${name}`);
@@ -449,4 +509,3 @@ console.log(`[CONFIG] Buyer Address: ${buyerAccount.address}`);
 console.log(`========================================`);
 
 await server.connect(transport);
-
