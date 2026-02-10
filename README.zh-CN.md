@@ -51,9 +51,6 @@ node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
 ```bash
 # 必需：用于签名支付的私钥
 export BUYER_PRIVATE_KEY="0x..."
-
-# 可选：自定义 Fact API 地址（默认：http://localhost:8787）
-# export FACT_API_URL="http://localhost:8787"
 ```
 
 ### OpenCode 配置

@@ -51,9 +51,6 @@ Set required environment variables:
 ```bash
 # Required: Your wallet private key for signing payments
 export BUYER_PRIVATE_KEY="0x..."
-
-# Optional: Custom Fact API URL (default: http://localhost:8787)
-# export FACT_API_URL="http://localhost:8787"
 ```
 
 ### OpenCode Configuration
