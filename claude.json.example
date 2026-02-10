@@ -2,7 +2,7 @@
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["iautopay-mcp"],
+      "args": ["@newblock/iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }

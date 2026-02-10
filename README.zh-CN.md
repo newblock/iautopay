@@ -16,7 +16,7 @@ iAutoPay 是一个让智能体自动进行支付购买的 MCP 服务，当前使
 无需安装！直接运行：
 
 ```bash
-npx iautopay-mcp
+npx @newblock/iautopay-mcp
 ```
 
 这将自动下载并缓存该包。
@@ -26,21 +26,21 @@ npx iautopay-mcp
 ### 方式 1：npx（推荐）
 
 ```bash
-npx iautopay-mcp
+npx @newblock/iautopay-mcp
 ```
 
 ### 方式 2：全局安装
 
 ```bash
-npm install -g iautopay-mcp
-iautopay-mcp
+npm install -g @newblock/iautopay-mcp
+@newblock/iautopay-mcp
 ```
 
 ### 方式 3：项目依赖
 
 ```bash
-npm install iautopay-mcp
-node node_modules/iautopay-mcp/dist/iautopay-mcp.js
+npm install @newblock/iautopay-mcp
+node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
 ```
 
 ## 配置
@@ -64,7 +64,7 @@ export BUYER_PRIVATE_KEY="0x..."
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "iautopay-mcp"],
+      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
@@ -83,7 +83,7 @@ export BUYER_PRIVATE_KEY="0x..."
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["iautopay-mcp"],
+      "args": ["@newblock/iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }

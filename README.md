@@ -16,7 +16,7 @@ iAutoPay is an MCP service that enables AI agents to automatically pay for purch
 No installation required! Just run:
 
 ```bash
-npx iautopay-mcp
+npx @newblock/iautopay-mcp
 ```
 
 This will automatically download and cache the package.
@@ -26,21 +26,21 @@ This will automatically download and cache the package.
 ### Option 1: npx (Recommended)
 
 ```bash
-npx iautopay-mcp
+npx @newblock/iautopay-mcp
 ```
 
 ### Option 2: Global Install
 
 ```bash
-npm install -g iautopay-mcp
-iautopay-mcp
+npm install -g @newblock/iautopay-mcp
+@newblock/iautopay-mcp
 ```
 
 ### Option 3: Project Dependency
 
 ```bash
-npm install iautopay-mcp
-node node_modules/iautopay-mcp/dist/iautopay-mcp.js
+npm install @newblock/iautopay-mcp
+node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
 ```
 
 ## Configuration
@@ -64,7 +64,7 @@ Add to your `opencode.json`:
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "iautopay-mcp"],
+      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
@@ -83,7 +83,7 @@ Add to your `~/.claude/claude_desktop_config.json`:
   "mcpServers": {
     "iauto-pay": {
       "command": "npx",
-      "args": ["iautopay-mcp"],
+      "args": ["@newblock/iautopay-mcp"],
       "env": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
       }
