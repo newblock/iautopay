@@ -111,21 +111,7 @@ Direct stablecoin payment using EIP-3009 transferWithAuthorization.
 Use iauto-pay_pay_stablecoin tool to send 1 USDC to 0x123...
 ```
 
-### pay_fixed_account
-
-Preset fixed transfer account, direct transfer by command.
-
-**Parameters:**
-```json
-{
-  "account": "account1"
-}
-```
-
-**Usage example:**
-```
-Use iauto-pay_pay_fixed_account tool to transfer to preset account account1
-```
+**Tip**: You can preset frequently used transfer addresses and amounts to avoid manual input each time, improving convenience.
 
 ### buy_glm_apikey
 
@@ -189,13 +175,7 @@ npm publish
 Use iauto-pay_buy_glm_apikey tool to purchase GLM4.7 LLM API Key
 ```
 
-### Example 2: Transfer to Preset Account
-
-```
-Use iauto-pay_pay_fixed_account tool to transfer to preset account account1
-```
-
-### Example 3: Direct USDC Payment
+### Example 2: Direct USDC Payment
 
 ```
 Use iauto-pay_pay_stablecoin tool to send 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c

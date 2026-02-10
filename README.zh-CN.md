@@ -111,21 +111,7 @@ export BUYER_PRIVATE_KEY="0x..."
 使用 iauto-pay_pay_stablecoin 工具向 0x123... 发送 1 USDC
 ```
 
-### pay_fixed_account
-
-预设固定转账账户，直接转账。
-
-**参数：**
-```json
-{
-  "account": "account1"
-}
-```
-
-**使用示例：**
-```
-使用 iauto-pay_pay_fixed_account 工具向预设账户 account1 转账
-```
+**提示**：可以预设常用转账地址和金额，避免每次手动输入，提高使用便利性。
 
 ### buy_glm_apikey
 
@@ -154,13 +140,7 @@ export BUYER_PRIVATE_KEY="0x..."
 使用 iauto-pay_buy_glm_apikey 工具购买 GLM4.7 LLM 的 API Key
 ```
 
-### 示例 2：向预设账户转账
-
-```
-使用 iauto-pay_pay_fixed_account 工具向预设账户 account1 转账
-```
-
-### 示例 3：直接 USDC 支付
+### 示例 2：直接 USDC 支付
 
 ```
 使用 iauto-pay_pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 发送 0.01 USDC
