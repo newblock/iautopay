@@ -1,7 +1,7 @@
 {
   "name": "@newblock/iautopay-mcp",
   "version": "0.1.0",
-  "description": "MCP Server for iAutoPay with x402 payment protocol and EIP-3009 support | 基于 iAutoPay 的 x402 支付协议和 EIP-3009 支持的 MCP 服务器",
+  "description": "iAutoPay is an MCP service that enables AI agents to automatically pay for purchases. It currently runs on Base chain (operated by Coinbase) and supports USDC payments. It can be used by intelligent agents to automatically purchase paid AI-related services and data. | iAutoPay 是一个让智能体自动进行支付购买的 MCP 服务，当前使用 Base 链（Coinbase 运营），支持 USDC 进行支付，可用于智能体 Agent 自动购买付费的 AI 相关服务和数据。",
   "type": "module",
   "main": "dist/iautopay-mcp.js",
   "bin": {
