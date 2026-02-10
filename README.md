@@ -115,10 +115,6 @@ Use iauto-pay_pay_stablecoin tool to send 1 USDC to 0x123...
 
 ### buy_glm_apikey
 
-**Tip**: You can preset frequently used transfer addresses and amounts to avoid manual input each time, improving convenience.
-
-### buy_glm_apikey
-
 Purchase GLM4.7 LLM APIKEY.
 
 **Parameters:**
@@ -130,18 +126,6 @@ Purchase GLM4.7 LLM APIKEY.
 ```json
 {
   "apiKey": "sk-ABCD12345678901234567890",
-  "txHash": "0x4d757c7e121ad31607ee1e9c5af65bfe13b82c112fcf077638814c031ecc3a6b",
-  "payState": "paid"
-}
-**Parameters:**
-```json
-{}
-```
-
-**Returns:**
-```json
-{
-  "apiKey": "sk-RxmFQ2cLfBaefDFfkYlEGY51E74pl5h06bAHbF41vyCCCC",
   "txHash": "0x4d757c7e121ad31607ee1e9c5af65bfe13b82c112fcf077638814c031ecc3a6b",
   "payState": "paid"
 }

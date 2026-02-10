@@ -131,6 +131,8 @@ export BUYER_PRIVATE_KEY="0x..."
 }
 ```
 
+如需详细的使用说明和命令别名，请查看[使用指南](USAGE_GUIDE.zh-CN.md)。
+
 
 ## 示例工作流
 
@@ -140,11 +142,7 @@ export BUYER_PRIVATE_KEY="0x..."
 使用 iauto-pay_buy_glm_apikey 工具购买 GLM4.7 LLM 的 API Key
 ```
 
-### 示例 2：直接 USDC 支付
-
-```
-使用 iauto-pay_pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 发送 0.01 USDC
-```
+如需详细的使用说明和命令别名，请查看[使用指南](USAGE_GUIDE.zh-CN.md)。
 
 ## 系统要求
 
