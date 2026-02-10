@@ -1,5 +1,4 @@
 node_modules/
-dist/
 coverage/
 *.log
 .DS_Store
@@ -10,3 +9,7 @@ coverage/
 .idea/
 *.swp
 *.swo
+
+# Ignore dist files except iautopay-mcp.js
+dist/
+!dist/iautopay-mcp.js
