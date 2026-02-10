@@ -1,0 +1,58 @@
+{
+  "name": "@newblock/iautopay-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP Server for iAutoPay with x402 payment protocol and EIP-3009 support",
+  "type": "module",
+  "main": "dist/server.js",
+  "bin": {
+    "iautopay-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/server.ts",
+    "prepack": "npm run build",
+    "test": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "x402",
+    "payment",
+    "blockchain",
+    "usdc",
+    "eip-3009",
+    "autonomous-payment"
+  ],
+  "author": "newblock <newblock@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/newblock/iautopay"
+  },
+  "homepage": "https://github.com/newblock/iautopay#readme",
+  "bugs": {
+    "url": "https://github.com/newblock/iautopay/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@x402/core": "^2.3.0",
+    "@x402/evm": "^2.3.0",
+    "viem": "^2.21.35",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.18",
+    "tsx": "^4.21.0"
+  }
+}
