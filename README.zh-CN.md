@@ -1,4 +1,4 @@
-# @newblock/iautopay-mcp
+# iautopay-mcp
 
 iAutoPay 是一个让智能体自动进行支付购买的 MCP 服务，当前使用 Base 链（Coinbase 运营），支持 USDC 进行支付，可用于智能体 Agent 自动购买付费的 AI 相关服务和数据。
 
@@ -26,21 +26,21 @@ npx @newblock/iautopay-mcp
 ### 方式 1：npx（推荐）
 
 ```bash
-npx @newblock/iautopay-mcp
+npx iautopay-mcp
 ```
 
 ### 方式 2：全局安装
 
 ```bash
-npm install -g @newblock/iautopay-mcp
+npm install -g iautopay-mcp
 iautopay-mcp
 ```
 
 ### 方式 3：项目依赖
 
 ```bash
-npm install @newblock/iautopay-mcp
-node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
+npm install iautopay-mcp
+node node_modules/iautopay-mcp/dist/iautopay-mcp.js
 ```
 
 ## 配置
@@ -64,7 +64,7 @@ export BUYER_PRIVATE_KEY="0x..."
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
+      "command": ["npx", "-y", "iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"

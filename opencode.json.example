@@ -3,7 +3,7 @@
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
+      "command": ["npx", "-y", "iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"

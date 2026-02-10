@@ -32,15 +32,15 @@ npx @newblock/iautopay-mcp
 ### Option 2: Global Install
 
 ```bash
-npm install -g @newblock/iautopay-mcp
+npm install -g iautopay-mcp
 iautopay-mcp
 ```
 
 ### Option 3: Project Dependency
 
 ```bash
-npm install @newblock/iautopay-mcp
-node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
+npm install iautopay-mcp
+node node_modules/iautopay-mcp/dist/iautopay-mcp.js
 ```
 
 ## Configuration
@@ -64,7 +64,7 @@ Add to your `opencode.json`:
   "mcp": {
     "iauto-pay": {
       "type": "local",
-      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
+      "command": ["npx", "-y", "iautopay-mcp"],
       "enabled": true,
       "environment": {
         "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
@@ -110,6 +110,10 @@ Direct stablecoin payment using EIP-3009 transferWithAuthorization.
 ```
 Use iauto-pay_pay_stablecoin tool to send 1 USDC to 0x123...
 ```
+
+**Tip**: You can preset frequently used transfer addresses and amounts to avoid manual input each time, improving convenience.
+
+### buy_glm_apikey
 
 **Tip**: You can preset frequently used transfer addresses and amounts to avoid manual input each time, improving convenience.
 
