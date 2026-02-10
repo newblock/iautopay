@@ -15,9 +15,7 @@
   ],
   "scripts": {
     "build": "bun build src/server.ts --target node --format esm --outfile dist/iautopay-mcp.js --external @x402/core --external @x402/evm",
-    "build:npm": "tsc -p tsconfig.json",
     "dev": "tsx src/server.ts",
-    "prepack": "npm run build:npm",
     "test": "vitest"
   },
   "keywords": [
