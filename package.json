@@ -46,8 +46,6 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
-    "@x402/core": "^2.3.0",
-    "@x402/evm": "^2.3.0",
     "dotenv": "^17.3.1",
     "viem": "^2.21.35",
     "zod": "^3.24.1",
