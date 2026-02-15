@@ -7,11 +7,12 @@ This project supports both OpenCode and Claude CLI MCP servers.
 Configuration is automatically generated at installation via `opencode.json`.
 
 Available commands:
+- `/autopay_guide` - Show iAutoPay usage guide
 - `/autopay_toA` - Quick payment of 0.01 USDC
 - `/autopay_toB` - Quick payment of 0.05 USDC (with confirmation)
-- `/autopay_buy_glm_nvidia_apikey` - Purchase GLM NVIDIA API Key
-- `/autopay_custom` - Custom payment
-- `/autopay_getInfo` - Get service information
+- `/autopay_buy_apikey_1day` - Buy 1-day API Key (0.09 USDC)
+- `/autopay_buy_apikey_7days` - Buy 7-day API Key (0.49 USDC)
+- `/autopay_get_info` - Get iAutoPay server information
 
 ## Claude CLI
 
@@ -28,7 +29,7 @@ This method uses the configuration file generated at `mcp-config.json` during in
 
 ```bash
 # Add MCP server to Claude CLI
-BUYER_PRIVATE_KEY="your_private_key" claude mcp add iauto-pay \
+BUYER_PRIVATE_KEY="your_private_key" claude mcp add autopay \
   -e BUYER_PRIVATE_KEY="your_private_key" \
   -- npx -y @newblock/iautopay-mcp
 
@@ -36,7 +37,7 @@ BUYER_PRIVATE_KEY="your_private_key" claude mcp add iauto-pay \
 claude mcp list
 
 # Should show:
-# iauto-pay: npx -y @newblock/iautopay-mcp - ✓ Connected
+# autopay: npx -y @newblock/iautopay-mcp - ✓ Connected
 ```
 
 After adding, you can simply run `claude` without any additional flags.
@@ -47,7 +48,7 @@ After adding, you can simply run `claude` without any additional flags.
 # Create mcp-config.json manually:
 {
   "mcpServers": {
-    "iauto-pay": {
+    "autopay": {
       "command": "npx",
       "args": ["-y", "@newblock/iautopay-mcp"],
       "env": {
@@ -65,10 +66,12 @@ claude --mcp-config mcp-config.json
 
 When using Claude CLI with MCP enabled, the following tools are available:
 
-- `pay_stablecoin` - Pay USDC to any address (auto-detects mainnet/testnet based on CUR_ENV)
-- `buy_glm_nvidia_apikey` - Purchase GLM NVIDIA API Key
-- `get_info` - Get server information (stock, price, network config)
-- `pay_preset` - Quick preset payments (toA: 0.01 USDC, toB: 0.05 USDC)
+- `guide` - Display complete iAutoPay usage guide
+- `info` - Get server information (stock, prices, network config)
+- `buy_apikey` - Buy API key (supports 1/7 day durations)
+- `pay_stablecoin` - Pay stablecoin to specified address
+- `sync_opencode_config` - Auto-configure opencode.json shortcuts
+- `refresh_pricing` - Refresh prices from server
 
 ## Usage Examples
 
@@ -91,14 +94,14 @@ claude
 claude mcp list
 
 # Get details of specific server
-claude mcp get iauto-pay
+claude mcp get autopay
 ```
 
 ## Removing MCP Server
 
 If you added to local config:
 ```bash
-claude mcp remove iauto-pay -s local
+claude mcp remove autopay -s local
 ```
 
 If using config file, simply remove the `--mcp-config mcp-config.json` flag when running `claude`.
@@ -112,7 +115,7 @@ If using config file, simply remove the `--mcp-config mcp-config.json` flag when
 
 **Tools not showing up:**
 1. Verify MCP connection: `claude mcp list`
-2. Check server health: `claude mcp get iauto-pay`
+2. Check server health: `claude mcp get autopay`
 3. Restart Claude CLI
 
 **Wrong environment (dev vs prod):**
