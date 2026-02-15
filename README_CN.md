@@ -18,7 +18,6 @@ npx @newblock/iautopay-mcp
 
 ```bash
 npm install -g @newblock/iautopay-mcp
-@newblock/iautopay-mcp
 ```
 
 ## 配置
