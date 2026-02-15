@@ -1,6 +1,6 @@
 {
   "name": "@newblock/iautopay-mcp",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "iAutoPay is an MCP service that enables AI agents to automatically pay for purchases. It currently runs on Base chain (operated by Coinbase) and supports USDC payments.",
   "type": "module",
   "main": "dist/iautopay-mcp.js",
