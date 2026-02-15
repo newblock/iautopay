@@ -2,13 +2,6 @@
 
 iAutoPay is an MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It currently runs on the Base chain (operated by Coinbase) and supports USDC payments. Agents can use it to automatically purchase paid AI-related services and data.
 
-## Supported Models
-
-API keys purchased through this service provide access to:
-- `z-ai/glm4.7` (GLM4.7 with thinking chain support)
-- `minimaxai/minimax-m2.1` (MiniMax general LLM)
-- `deepseek-ai/deepseek-v3.2` (DeepSeek with thinking chain)
-
 ## Installation
 
 ### Option 1: npx (Recommended)
@@ -25,7 +18,6 @@ This will automatically download and cache the package.
 
 ```bash
 npm install -g @newblock/iautopay-mcp
-@newblock/iautopay-mcp
 ```
 
 ## Configuration
@@ -222,6 +214,8 @@ Purchase successful!
 
 Your API Key: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Valid for: 1 day
+
+👉 Check [LLM Services Guide](doc/LLM_SERVICES_GUIDE.md) to learn how to use the API Key to access supported models
 
 
 ## License
