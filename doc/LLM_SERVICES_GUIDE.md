@@ -6,11 +6,9 @@
 
 通过本服务购买的 API Key 可访问以下模型：
 
-- `z-ai/glm4.7` - GLM4.7 with thinking chain support
-- `minimaxai/minimax-m2.1` - MiniMax general LLM
-- `deepseek-ai/deepseek-v3.2` - DeepSeek with thinking chain
-- `kimi2.5` - Kimi AI model
-- `glm5.0` - GLM 5.0 model
+- `z-ai/glm4.7` - GLM-4.7 with thinking chain support (128k context, 16384 output)
+- `z-ai/glm5` - GLM-5 with thinking chain support (128k context, 16384 output)
+- `moonshotai/kimi-k2.5` - Kimi K2.5 with long context support (200k context, 16384 output)
 
 ## API Key Pricing
 
@@ -67,17 +65,40 @@ sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "api": {
-    "custom": {
-      "baseURL": "https://your-api-endpoint.com/v1",
-      "apiKey": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      "models": [
-        "z-ai/glm4.7",
-        "minimaxai/minimax-m2.1",
-        "deepseek-ai/deepseek-v3.2",
-        "kimi2.5",
-        "glm5.0"
-      ]
+  "provider": {
+    "autopay": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Autopay API",
+      "options": {
+        "baseURL": "https://ipaynapi.gpuart.cn/v1",
+        "apiKey": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "models": {
+        "GLM-4.7": {
+          "id": "z-ai/glm4.7",
+          "name": "GLM-4.7",
+          "description": "由智谱AI训练的大型语言模型，支持思维链推理",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true
+        },
+        "GLM-5": {
+          "id": "z-ai/glm5",
+          "name": "GLM-5",
+          "description": "由智谱AI训练的大型语言模型，支持思维链推理",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true
+        },
+        "Kimi-K2.5": {
+          "id": "moonshotai/kimi-k2.5",
+          "name": "Kimi K2.5",
+          "description": "由 Moonshot AI 开发的先进语言模型，支持长上下文和思维链",
+          "tool_call": true,
+          "temperature": true,
+          "reasoning": true
+        }
+      }
     }
   }
 }
@@ -89,7 +110,7 @@ sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ```bash
 # 使用 curl
-curl -X POST https://your-api-endpoint.com/v1/chat/completions \
+curl -X POST https://ipaynapi.gpuart.cn/v1/chat/completions \
   -H "Authorization: Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
   -H "Content-Type: application/json" \
   -d '{
@@ -100,30 +121,23 @@ curl -X POST https://your-api-endpoint.com/v1/chat/completions \
 
 ## Model Features
 
-### z-ai/glm4.7
-- 支持思维链
-- 强大的推理能力
-- 适合复杂任务
+### GLM-4.7 (z-ai/glm4.7)
+- 支持思维链推理
+- 128k 上下文长度
+- 16384 输出长度
+- 强大的推理能力，适合复杂任务
 
-### minimaxai/minimax-m2.1
-- 通用大模型
-- 平衡的性能
-- 适合日常使用
+### GLM-5 (z-ai/glm5)
+- 支持思维链推理
+- 128k 上下文长度
+- 16384 输出长度
+- 最新版本，提升的多模态能力
 
-### deepseek-ai/deepseek-v3.2
-- 支持思维链
-- 优秀的代码理解能力
-- 适合编程任务
-
-### kimi2.5
-- 中文优化
-- 长上下文支持
-- 适合文档分析
-
-### glm5.0
-- 最新版本
-- 多模态能力
-- 适合综合任务
+### Kimi K2.5 (moonshotai/kimi-k2.5)
+- 支持思维链推理
+- 200k 超长上下文长度
+- 16384 输出长度
+- 由 Moonshot AI 开发，适合长文档分析和复杂任务
 
 ## Support
 
