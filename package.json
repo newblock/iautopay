@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "dev": "tsx src/server.ts",
+    "dev": "tsx src/iautopay-mcp.ts",
     "test": "vitest",
     "install:opencode-config": "node scripts/generate-opencode-config.js",
     "prepublishOnly": "npm run build"

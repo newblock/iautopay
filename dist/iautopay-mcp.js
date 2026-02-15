@@ -31,8 +31,7 @@ if (!CONFIG.BUYER_PRIVATE_KEY) {
 }
 // Validate private key format
 try {
-    const account = privateKeyToAccount(CONFIG.BUYER_PRIVATE_KEY);
-    console.log(`[CONFIG] Private key validated, account: ${account.address}`);
+    privateKeyToAccount(CONFIG.BUYER_PRIVATE_KEY);
 }
 catch (error) {
     throw new Error(`Invalid BUYER_PRIVATE_KEY format: ${error}`);
@@ -81,20 +80,16 @@ async function fetchPricingFromFactAPI() {
                 "7days": `${data.prices?.["7daysUsdc"] || 0.49} USDC`,
                 "30days": `${data.prices?.["30daysUsdc"] || 0.99} USDC`
             };
-            console.log(`[PRICING] Loaded from fact-api:`, CACHED_PRICING);
             return CACHED_PRICING;
         }
     }
     catch (error) {
-        console.warn(`[PRICING] Failed to fetch from fact-api, using defaults. Error:`, error);
     }
-    // Default pricing as fallback
     CACHED_PRICING = {
         "1day": "0.09 USDC",
         "7days": "0.49 USDC",
         "30days": "0.99 USDC"
     };
-    console.log(`[PRICING] Using default pricing:`, CACHED_PRICING);
     return CACHED_PRICING;
 }
 const buyerAccount = privateKeyToAccount(CONFIG.BUYER_PRIVATE_KEY);
@@ -119,14 +114,11 @@ async function fetchWithRetry(url, options, context = 'API Request') {
             if (response.ok || response.status < 500) {
                 return response;
             }
-            console.log(`[RETRY] ${context} - Attempt ${i + 1}/${RETRY_CONFIG.MAX_RETRIES} failed, status: ${response.status}`);
         }
         catch (error) {
-            console.log(`[RETRY] ${context} - Attempt ${i + 1}/${RETRY_CONFIG.MAX_RETRIES} error:`, error);
         }
         if (i < RETRY_CONFIG.MAX_RETRIES - 1) {
             const delay = RETRY_CONFIG.BASE_DELAY * Math.pow(2, i);
-            console.log(`[RETRY] ${context} - Waiting ${delay}ms before retry...`);
             await new Promise(resolve => setTimeout(resolve, delay));
         }
     }
@@ -258,11 +250,6 @@ async function buildPaymentSignature(requirements) {
     };
 }
 async function payStablecoin(params) {
-    console.log(`[PAY_STABLECOIN] Starting payment...`);
-    console.log(`[PAY_STABLECOIN] Network: ${params.isTestnet ? "eip155:84532 (Testnet)" : `eip155:${BUYER_CHAIN_ID}`}`);
-    console.log(`[PAY_STABLECOIN] Asset: ${params.asset}`);
-    console.log(`[PAY_STABLECOIN] Amount: ${params.amount}`);
-    console.log(`[PAY_STABLECOIN] To: ${params.to}`);
     const [balance, decimals] = await Promise.all([
         publicClient.readContract({
             address: params.asset,
@@ -278,10 +265,7 @@ async function payStablecoin(params) {
     ]);
     const balanceNumber = Number(balance) / (10 ** Number(decimals));
     const amountNumber = Number(params.amount) / 1e6;
-    console.log(`[PAY_STABLECOIN] Current balance: ${balanceNumber.toFixed(6)} USDC`);
-    console.log(`[PAY_STABLECOIN] Required: ${amountNumber.toFixed(6)} USDC`);
     if (balanceNumber < amountNumber) {
-        console.log(`[PAY_STABLECOIN] Insufficient balance!`);
         throw new Error(`Insufficient balance: required ${amountNumber.toFixed(6)} USDC, available ${balanceNumber.toFixed(6)} USDC`);
     }
     const requirements = {
@@ -291,10 +275,7 @@ async function payStablecoin(params) {
         price: params.amount,
         payee: params.to,
     };
-    console.log(`[PAY_STABLECOIN] Building payment signature...`);
     const signaturePayload = await buildPaymentSignature(requirements);
-    console.log(`[PAY_STABLECOIN] Signature built, calling fact-api...`);
-    console.log(`[PAY_STABLECOIN] Fact API URL: ${FACT_API_URL}/v1/transfer`);
     const transferRes = await fetchWithRetry(`${FACT_API_URL}/v1/transfer`, {
         method: "POST",
         headers: {
@@ -307,15 +288,12 @@ async function payStablecoin(params) {
             asset: params.asset,
         }),
     }, 'PAY_STABLECOIN Transfer');
-    console.log(`[PAY_STABLECOIN] Fact API response status: ${transferRes.status}`);
     if (!transferRes.ok) {
         const error = await transferRes.text();
-        console.log(`[PAY_STABLECOIN] Transfer failed: ${error}`);
         const networkInfo = params.isTestnet ? "Testnet (Base Sepolia 84532)" : `Mainnet (Base ${BUYER_CHAIN_ID === '8453' ? 'Mainnet' : BUYER_CHAIN_ID})`;
         throw new Error(`Transfer failed (${networkInfo}): ${error}`);
     }
     const result = await transferRes.json();
-    console.log(`[PAY_STABLECOIN] Transfer successful:`, result);
     const deductedAmount = amountNumber.toFixed(6);
     const currentBalance = (balanceNumber - amountNumber).toFixed(6);
     return {
@@ -408,8 +386,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const priceString = priceMap[duration];
         const priceNumber = parseFloat(priceString);
         const priceWei = (priceNumber * 1e6).toString();
-        console.log(`[BUY_APIKEY] Checking balance...`);
-        console.log(`[BUY_APIKEY] Required: ${priceNumber.toFixed(6)} USDC, Available: ${balanceNumber.toFixed(6)} USDC`);
         if (balanceNumber < priceNumber) {
             throw new Error(`Insufficient balance: required ${priceNumber.toFixed(6)} USDC, available ${balanceNumber.toFixed(6)} USDC`);
         }
@@ -420,11 +396,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             price: priceWei,
             payee: "0x1a85156c2943b63febeee7883bd84a7d1cf0da0c",
         };
-        console.log(`[BUY_APIKEY] Building payment signature...`);
         const signaturePayload = await buildPaymentSignature(requirements);
-        console.log(`[BUY_APIKEY] Signature built, calling fact-api...`);
-        console.log(`[BUY_APIKEY] Fact API URL: ${FACT_API_URL}/v1/buy-apikey`);
-        console.log(`[BUY_APIKEY] Sending request to fact-api (no retry, generate new nonce on failure)...`);
         const buyRes = await fetch(`${FACT_API_URL}/v1/buy-apikey`, {
             method: "POST",
             headers: {
@@ -433,15 +405,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             },
             body: JSON.stringify({ duration })
         });
-        console.log(`[BUY_APIKEY] Fact API response status: ${buyRes.status}`);
         if (!buyRes.ok) {
             const error = await buyRes.text();
-            console.log(`[BUY_APIKEY] Buy API key failed ${error}`);
             const networkInfo = CUR_ENV === 'dev' ? "Testnet (Base Sepolia 84532)" : `Mainnet (Base ${BUYER_CHAIN_ID})`;
             throw new Error(`Buy API key failed (${networkInfo}): ${error}`);
         }
         const result = await buyRes.json();
-        console.log(`[BUY_APIKEY] Buy API key successful:`, result);
         return {
             content: [{
                     type: "text",
@@ -597,21 +566,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     throw new Error(`Unknown tool: ${name}`);
 });
 const transport = new StdioServerTransport();
-console.log(`========================================`);
-console.log(`[CONFIG] Environment: ${CUR_ENV}`);
-console.log(`[CONFIG] RPC URL: ${BUYER_RPC_URL}`);
-console.log(`[CONFIG] Chain ID: ${BUYER_CHAIN_ID}`);
-console.log(`[CONFIG] Fact API: ${FACT_API_URL}`);
-console.log(`[CONFIG] USDC Address: ${CURRENT_USDC}`);
-console.log(`[CONFIG] Buyer Address: ${buyerAccount.address}`);
-console.log(`========================================`);
-// Fetch pricing from Fact API on startup
 await fetchPricingFromFactAPI();
-console.log(`========================================`);
-console.log(`[PRICING] 1 Day: ${CACHED_PRICING?.["1day"]}`);
-console.log(`[PRICING] 7 Days: ${CACHED_PRICING?.["7days"]}`);
-console.log(`[PRICING] 30 Days: ${CACHED_PRICING?.["30days"]}`);
-// Check USDC balance on startup
 try {
     const usdcBalance = await publicClient.readContract({
         address: CURRENT_USDC,
@@ -624,27 +579,7 @@ try {
         abi: tokenAbi,
         functionName: 'decimals'
     });
-    const balanceNumber = Number(usdcBalance) / (10 ** Number(decimals));
-    console.log(`[BALANCE] USDC Balance: ${balanceNumber.toFixed(6)} USDC`);
 }
 catch (error) {
-    console.warn(`[BALANCE] Failed to check USDC balance:`, error);
 }
-console.log(`========================================`);
 await server.connect(transport);
-// Display startup message for users
-setTimeout(() => {
-    console.log(`
-╔════════════════════════════════════════════════════════════╗
-║           iAutoPay MCP Server 已启动                          ║
-╠════════════════════════════════════════════════════════════╣
-║  快速开始：                                                  ║
-║  1. 输入 "guide" 查看完整使用指南                             ║
-║  2. 输入 "info" 查看服务器信息和价格                          ║
-║  3. 输入 "buy_apikey" 购买 API Key (可选1/7/30天)             ║
-╠════════════════════════════════════════════════════════════╣
-║  提示：请确保 opencode.json 已配置 autopay_ 命令            ║
-║  运行 "sync_opencode_config" 自动添加缺失的命令               ║
-╚════════════════════════════════════════════════════════════╝
-`);
-}, 1000);
