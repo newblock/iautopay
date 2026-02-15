@@ -1,6 +1,6 @@
 # iAutoPay MCP Service
 
-An MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It currently runs on the Base chain (operated by Coinbase) and supports USDC payments. It can be used by intelligent agents to automatically purchase paid AI-related services and data.
+An MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It currently runs on Base chain (operated by Coinbase) and supports USDC payments. It can be used by intelligent agents to automatically purchase paid AI-related services and data.
 
 ## Features
 
@@ -10,14 +10,6 @@ An MCP (Model Context Protocol) service that enables AI agents to automatically 
 - 🤖 **AI-Native**: Full MCP integration designed for AI agents
 - 💸 **Fixed Transfer**: Preset fixed transfer account command, direct transfer by command
 - 🔑 **API Key Purchase**: Support GLM4.7 LLM API Key purchase service with dynamic pricing
-
-## Tech Stack
-
-- Node.js + TypeScript
-- Model Context Protocol (MCP) SDK
-- Viem (Ethereum library)
-- Base Chain (Base Sepolia for dev, Base Mainnet for prod)
-- USDC (EIP-3009 transferWithAuthorization)
 
 ## Supported Models
 
@@ -83,44 +75,20 @@ Add to your `opencode.json`:
 }
 ```
 
-#### Auto-generate OpenCode Configuration with Commands
-
-To generate a complete `opencode.json` with predefined command shortcuts, run:
-
-```bash
-npm run install:opencode-config
-```
-
-This will create/update `opencode.json` in your project root with the following shortcut commands:
-
-- `autopay_toA`: Pay 0.01 USDC to Account A
-- `autopay_toB`: Pay 0.05 USDC to Account B (with confirmation)
-- `autopay_custom`: Custom transfer (specify recipient address and amount)
-- `autopay_getInfo`: Get service information (API key stock and price)
-- `autopay_buy_glm_nvidia_apikey`: Buy GLM NVIDIA API Key
-
 ### Claude CLI Configuration
 
 For detailed instructions on using Claude CLI with MCP, see [CLAUDE_CLI_MCP_SETUP.md](CLAUDE_CLI_MCP_SETUP.md).
 
 #### Quick Setup
 
-To generate configurations for both OpenCode and Claude CLI:
-
 ```bash
-# Generate all configurations
-npm run install:opencode-config
-
-# Use with Claude CLI
-claude --mcp-config mcp-config.json
-```
-
-Or manually add to Claude CLI:
-
-```bash
+# Install and add to Claude CLI
 BUYER_PRIVATE_KEY="your_private_key" claude mcp add iauto-pay \
   -e BUYER_PRIVATE_KEY="your_private_key" \
   -- npx -y @newblock/iautopay-mcp
+
+# Use with MCP config
+claude --mcp-config mcp-config.json
 ```
 
 ### Claude Code Configuration
@@ -286,14 +254,6 @@ The MCP server supports two environments configured in `src/server.ts`:
 - USDC Address: 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
 - Token Name: "USD Coin"
 
-To switch environments, modify `CUR_ENV` in `src/server.ts` and rebuild:
-
-```bash
-# Edit src/server.ts: const CUR_ENV: 'dev' | 'prod' = 'prod';
-npm run build
-npm publish
-```
-
 ## Example Workflows
 
 ### Example 1: Purchase GLM4.7 API Key
@@ -312,74 +272,6 @@ Transaction executes automatically
 Receive transaction hash
 ```
 
-## Project Structure
-
-```
-iap_npm/
-├── src/
-│   ├── server.ts              # Main MCP server implementation
-│   └── check_balance.ts       # Balance checking utilities
-├── dist/                      # Compiled JavaScript output
-├── scripts/
-│   └── generate-opencode-config.js  # Config generation script
-├── test/                      # Test files
-├── package.json               # Dependencies and scripts
-├── README.md                  # This file
-├── QUICKSTART.md             # Quick start guide (5 min)
-├── mcp-config.json.example   # MCP configuration template
-└── CLAUDE_CLI_MCP_SETUP.md   # Claude CLI setup guide
-```
-
-## Requirements
-
-- Node.js >= 18.0.0
-- npm >= 9.0.0
-
-## Dependencies
-
-- @modelcontextprotocol/sdk ^1.0.0
-- @x402/core ^2.3.0
-- @x402/evm ^2.3.0
-- viem ^2.21.35
-- zod ^3.24.1
-- zod-to-json-schema ^3.24.1
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Development mode
-npm run dev
-
-# Build
-npm run build
-
-# Run tests
-npm test
-
-# Type checking
-npm run typecheck
-```
-
-## Security Considerations
-
-1. **Private Key Management**
-   - Private keys are stored in environment variables only
-   - Never commit private keys to version control
-   - Use different keys for development and production
-
-2. **Payment Security**
-   - EIP-3009 provides secure delegated transfers
-   - Balance checks before transactions
-   - Transaction logging for audit trail
-
-3. **API Key Security**
-   - API keys use UUID format (hard to guess)
-   - Time-limited validity (1/7/30 days)
-   - Automatic expiration
-
 ## License
 
 Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0) - see [LICENSE](LICENSE) file for details.
@@ -392,39 +284,7 @@ Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4
 
 For issues and questions, please use the [GitHub Issues](https://github.com/newblock/iautopay/issues).
 
-## 📚 Documentation
+## Documentation
 
-### Quick Start
-- [QUICKSTART.md](QUICKSTART.md) - 5分钟快速上手指南
-
-### Detailed Documentation
 - [CLAUDE_CLI_MCP_SETUP.md](CLAUDE_CLI_MCP_SETUP.md) - Claude CLI integration guide
 - [mcp-config.json.example](mcp-config.json.example) - MCP configuration template
-
-### Integration Guides
-- OpenCode Integration (see Configuration section)
-- Claude CLI Integration (see CLAUDE_CLI_MCP_SETUP.md)
-- Claude Desktop Integration (see Configuration section)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Changelog
-
-### Version 0.0.3
-- Updated to sync with iautopay/apps/mcp-server
-- Added dynamic pricing support from Fact API
-- Added retry mechanism for pay_stablecoin (max 3 retries with exponential backoff)
-- Note: buy_apikey does NOT use retry mechanism (generates new nonce on each attempt)
-- Added guide tool for new users
-- Added sync_opencode_config for quick setup
-- Added refresh_pricing for manual price updates
-- Improved error messages and logging
-- Updated API to use remote Fact API server
-
-### Version 0.0.1
-- Initial release
-- Basic payment functionality
-- API key purchase support
-- OpenCode and Claude CLI integration

@@ -3,18 +3,15 @@
   "version": "0.0.3",
   "description": "iAutoPay is an MCP service that enables AI agents to automatically pay for purchases. It currently runs on Base chain (operated by Coinbase) and supports USDC payments.",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "dist/iautopay-mcp.js",
   "bin": {
-    "iautopay-mcp": "dist/server.js"
+    "iautopay-mcp": "dist/iautopay-mcp.js"
   },
   "files": [
     "dist/*.js",
     "README.md",
-    "README.zh-CN.md",
-    "QUICKSTART.md",
     "CLAUDE_CLI_MCP_SETUP.md",
     "LICENSE",
-    "scripts/generate-opencode-config.js",
     "mcp-config.json.example"
   ],
   "scripts": {

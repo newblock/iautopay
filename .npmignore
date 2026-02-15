@@ -15,11 +15,9 @@ test/
 .git/
 .gitignore
 
-# Documentation (keep README.md, README.zh-CN.md, CLAUDE_CLI_MCP_SETUP.md)
-docs/
+# Documentation (keep only README.md and CLAUDE_CLI_MCP_SETUP.md)
 *.md
 !README.md
-!README.zh-CN.md
 !CLAUDE_CLI_MCP_SETUP.md
 
 # Environment configuration
@@ -46,8 +44,9 @@ mcp-config.json
 # Temporary files
 node_modules/
 coverage/
+bun.lock
 
-# Keep only the bundled file, exclude other dist files
-dist/server.js
+# Dist files - keep only iautopay-mcp.js
 dist/check_balance.js
-dist/mcp-server-bundle.js
+dist/*.d.ts
+dist/*.d.ts.map
