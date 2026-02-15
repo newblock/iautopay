@@ -153,7 +153,7 @@ Run `sync_opencode_config` tool to auto-add these commands to your config.
 
 ### Opencode Quick Commands Usage Examples
 
-1: /autopay_guide
+### 1: /autopay_guide
 
 Output:
 
@@ -180,7 +180,7 @@ Pricing
 - 7 days: 0.9 USDC
 Environment: dev
 
-2: /autopay_toA
+### 2: /autopay_toA
 
 Output:
 
@@ -188,7 +188,7 @@ Paying 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c...
 Transaction hash: 0xabc123...
 Payment successful!
 
-3: /autopay_toB
+### 3: /autopay_toB
 
 Output:
 
@@ -204,7 +204,7 @@ Paying 0.05 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c...
 Transaction hash: 0xdef456...
 Payment successful!
 
-4: /autopay_buy_apikey_1day
+### 4: /autopay_buy_apikey_1day
 
 Output:
 

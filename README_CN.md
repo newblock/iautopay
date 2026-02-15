@@ -153,7 +153,7 @@ claude --mcp-config mcp-config.json
 
 ### Opencode 快捷命令使用示例
 
-#### 1：/autopay_guide
+### 1：/autopay_guide
 
 输出结果：
 
@@ -180,7 +180,7 @@ iAutoPay 使用指南
 - 7天: 0.9 USDC
 环境: dev
 
-#### 2：/autopay_toA
+### 2：/autopay_toA
 
 输出结果：
 
@@ -188,7 +188,7 @@ iAutoPay 使用指南
 交易哈希: 0xabc123...
 支付成功！
 
-#### 3：/autopay_toB
+### 3：/autopay_toB
 
 输出结果：
 
@@ -204,7 +204,7 @@ iAutoPay 使用指南
 交易哈希: 0xdef456...
 支付成功！
 
-#### 4：/autopay_buy_apikey_1day
+### 4：/autopay_buy_apikey_1day
 
 输出结果：
 
