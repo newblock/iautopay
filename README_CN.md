@@ -2,13 +2,6 @@
 
 iAutoPay 是一个 MCP (Model Context Protocol) 服务，使 AI 智能体能够自动支付购买费用。它目前运行在 Base 链上（由 Coinbase 运营），支持 USDC 支付。智能体可以通过它自动购买付费的 AI 相关服务和数据。
 
-## 支持的模型
-
-通过此服务购买的 API Key 可以访问：
-- `z-ai/glm4.7` (支持思维链的 GLM4.7)
-- `minimaxai/minimax-m2.1` (MiniMax 通用大语言模型)
-- `deepseek-ai/deepseek-v3.2` (支持思维链的 DeepSeek)
-
 ## 安装
 
 ### 方式 1：npx（推荐）
