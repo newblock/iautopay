@@ -1,22 +1,28 @@
 {
   "name": "@newblock/iautopay-mcp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "iAutoPay is an MCP service that enables AI agents to automatically pay for purchases. It currently runs on Base chain (operated by Coinbase) and supports USDC payments.",
   "type": "module",
-  "main": "dist/iautopay-mcp.js",
+  "main": "dist/server.js",
   "bin": {
-    "iautopay-mcp": "dist/iautopay-mcp.js"
+    "iautopay-mcp": "dist/server.js"
   },
   "files": [
-    "dist/iautopay-mcp.js",
+    "dist/*.js",
     "README.md",
     "README.zh-CN.md",
-    "LICENSE"
+    "QUICKSTART.md",
+    "CLAUDE_CLI_MCP_SETUP.md",
+    "LICENSE",
+    "scripts/generate-opencode-config.js",
+    "mcp-config.json.example"
   ],
   "scripts": {
-    "build": "bun build src/server.ts --target node --format esm --outfile dist/iautopay-mcp.js --external @x402/core --external @x402/evm",
+    "build": "tsc",
     "dev": "tsx src/server.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "install:opencode-config": "node scripts/generate-opencode-config.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
@@ -45,13 +51,15 @@
     "@modelcontextprotocol/sdk": "^1.0.0",
     "@x402/core": "^2.3.0",
     "@x402/evm": "^2.3.0",
+    "dotenv": "^17.3.1",
     "viem": "^2.21.35",
     "zod": "^3.24.1",
     "zod-to-json-schema": "^3.24.1"
   },
   "devDependencies": {
+    "@types/node": "^25.2.3",
+    "tsx": "^4.21.0",
     "typescript": "^5.0.0",
-    "vitest": "^4.0.18",
-    "tsx": "^4.21.0"
+    "vitest": "^4.0.18"
   }
 }

@@ -74,6 +74,46 @@ export BUYER_PRIVATE_KEY="0x..."
 }
 ```
 
+#### 自动生成 OpenCode 配置（含快捷命令）
+
+要生成包含预定义快捷命令的完整 `opencode.json`，运行：
+
+```bash
+npm run install:opencode-config
+```
+
+这将在你的项目根目录创建/更新 `opencode.json`，包含以下快捷命令：
+
+- `autopay_toA`: 支付 0.01 USDC 给 A 账户
+- `autopay_toB`: 支付 0.05 USDC 给 B 账户（需确认）
+- `autopay_custom`: 自定义转账（需指定收款地址和金额）
+- `autopay_getInfo`: 获取服务信息（API Key 库存和价格）
+- `autopay_buy_glm_nvidia_apikey`: 购买 GLM NVIDIA API Key
+
+### Claude CLI 配置
+
+详细的 Claude CLI MCP 使用说明，请查看 [CLAUDE_CLI_MCP_SETUP.md](CLAUDE_CLI_MCP_SETUP.md)。
+
+#### 快速配置
+
+同时为 OpenCode 和 Claude CLI 生成配置：
+
+```bash
+# 生成所有配置
+npm run install:opencode-config
+
+# 使用 Claude CLI
+claude --mcp-config mcp-config.json
+```
+
+或手动添加到 Claude CLI：
+
+```bash
+BUYER_PRIVATE_KEY="your_private_key" claude mcp add iauto-pay \
+  -e BUYER_PRIVATE_KEY="your_private_key" \
+  -- npx -y @newblock/iautopay-mcp
+```
+
 ### Claude Code 配置
 
 在你的 `~/.claude/claude_desktop_config.json` 中添加：

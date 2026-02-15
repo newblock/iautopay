@@ -15,16 +15,23 @@ test/
 .git/
 .gitignore
 
-# Documentation (keep README.md and README.zh-CN.md)
+# Documentation (keep README.md, README.zh-CN.md, CLAUDE_CLI_MCP_SETUP.md)
 docs/
 *.md
 !README.md
 !README.zh-CN.md
+!CLAUDE_CLI_MCP_SETUP.md
 
 # Environment configuration
 .env
 .env.*
 !.env.example
+
+# Generated OpenCode config (users should run npm run install:opencode-config)
+opencode.json
+
+# Generated Claude MCP config
+mcp-config.json
 
 # IDE
 .vscode/
