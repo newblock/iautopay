@@ -1,12 +1,12 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "iauto-pay": {
+    "autopay": {
       "type": "local",
       "command": ["npx", "-y", "@newblock/iautopay-mcp"],
       "enabled": true,
       "environment": {
-        "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
+        "BUYER_PRIVATE_KEY": "0xEVM_wallet_private_key"
       }
     }
   }

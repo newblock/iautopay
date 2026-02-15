@@ -63,12 +63,12 @@ Add to your `opencode.json`:
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "iauto-pay": {
+    "autopay": {
       "type": "local",
       "command": ["npx", "-y", "@newblock/iautopay-mcp"],
       "enabled": true,
       "environment": {
-        "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
+        "BUYER_PRIVATE_KEY": "0xEVM_wallet_private_key"
       }
     }
   }
@@ -83,7 +83,7 @@ For detailed instructions on using Claude CLI with MCP, see [CLAUDE_CLI_MCP_SETU
 
 ```bash
 # Install and add to Claude CLI
-BUYER_PRIVATE_KEY="your_private_key" claude mcp add iauto-pay \
+BUYER_PRIVATE_KEY="your_private_key" claude mcp add autopay \
   -e BUYER_PRIVATE_KEY="your_private_key" \
   -- npx -y @newblock/iautopay-mcp
 
@@ -98,11 +98,11 @@ Add to your `~/.claude/claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "iauto-pay": {
+    "autopay": {
       "command": "npx",
-      "args": ["@newblock/iautopay-mcp"],
+      "args": ["-y", "@newblock/iautopay-mcp"],
       "env": {
-        "BUYER_PRIVATE_KEY": "{env:BUYER_PRIVATE_KEY}"
+        "BUYER_PRIVATE_KEY": "0xEVM_wallet_private_key"
       }
     }
   }
@@ -219,6 +219,48 @@ Auto-configure opencode.json with quick commands (autopay_toA, autopay_toB, etc.
   "message": "✅ 已添加 7 个命令到 opencode.json"
 }
 ```
+
+### Quick Commands
+
+Add these shortcuts to your `opencode.json` for faster access:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "autopay_toA": {
+      "template": "Use pay_stablecoin tool to pay 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
+      "description": "Pay 0.01 USDC to account A"
+    },
+    "autopay_toB": {
+      "template": "First use question tool to ask user confirmation with options: 1) Confirm (continue payment), 2) Cancel (do not pay). Show payment details: Pay 0.05 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"50000\". Only proceed if user confirms.",
+      "description": "Pay 0.05 USDC to account A (requires confirmation)"
+    },
+    "autopay_buy_apikey_1day": {
+      "template": "Use buy_apikey tool to buy 1-day API Key, params: {\"duration\": 1}",
+      "description": "Buy 1-day API Key (0.09 USDC)"
+    },
+    "autopay_buy_apikey_7days": {
+      "template": "Use buy_apikey tool to buy 7-day API Key, params: {\"duration\": 7}",
+      "description": "Buy 7-day API Key (0.49 USDC)"
+    },
+    "autopay_buy_apikey_30days": {
+      "template": "Use buy_apikey tool to buy 30-day API Key, params: {\"duration\": 30}",
+      "description": "Buy 30-day API Key (0.99 USDC)"
+    },
+    "autopay_get_info": {
+      "template": "Use info tool to get server information (API Key stock, prices, network config)",
+      "description": "Get iAutoPay server information"
+    },
+    "autopay_guide": {
+      "template": "Use guide tool to show iAutoPay usage guide",
+      "description": "Show iAutoPay usage guide"
+    }
+  }
+}
+```
+
+Run `sync_opencode_config` tool to auto-add these commands to your config.
 
 ### refresh_pricing
 
