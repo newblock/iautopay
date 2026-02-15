@@ -22,27 +22,6 @@ npm install -g @newblock/iautopay-mcp
 
 ## Configuration
 
-> **Basic Knowledge About Cryptocurrency and Wallets**
->
-> Before using iAutoPay, you need to understand some basic cryptocurrency concepts:
->
-> - **Wallet Private Key**: A key similar to a password, used to sign transactions. **Keep it safe and never share it with anyone!**
-> - **Testnet**: A network for testing where test coins can be obtained for free from faucets
-> - **Mainnet**: The official network that requires real funds
-> - **USDC**: A stablecoin pegged to the US dollar (1 USDC ≈ 1 USD)
->
-> How to get test coins:
-> 1. Visit the Base Sepolia faucet: https://sepoliafaucet.com/
-> 2. Enter your wallet address
-> 3. Get free test USDC
->
-> Security tips:
-> - Never share your private key
-> - Test thoroughly on testnet before using mainnet
-> - Use a dedicated wallet, don't store large amounts of funds
->
-> For more blockchain basics, refer to: https://www.wtf.academy/zh/course/ethers101/HelloVitalik
-
 ### OpenCode Configuration
 
 Add to your `opencode.json`:
@@ -96,6 +75,29 @@ Add to your `~/.claude/claude_desktop_config.json`:
   }
 }
 ```
+
+> **Basic Knowledge About Cryptocurrency and Wallets**
+>
+> Before using iAutoPay, you need to understand some basic cryptocurrency concepts:
+>
+> - **Wallet Private Key**: A key similar to a password, used to sign transactions. **Keep it safe and never share it with anyone!**
+> - **Testnet**: A network for testing where test coins can be obtained for free from faucets
+> - **Mainnet**: The official network that requires real funds
+> - **USDC**: A stablecoin pegged to US dollar (1 USDC ≈ 1 USD)
+>
+> How to get test coins:
+> 1. Visit the Base Sepolia faucet: https://sepoliafaucet.com/
+> 2. Enter your wallet address
+> 3. Get free test USDC
+>
+> Security tips:
+> - Never share your private key
+> - Test thoroughly on testnet before using mainnet
+> - Use a dedicated wallet, don't store large amounts of funds
+>
+> For more blockchain basics, refer to: https://www.wtf.academy/zh/course/ethers101/HelloVitalik
+
+### opencode autopay command loading success
 
 ![MCP usage screenshot](doc/opencode_cmd.jpg)
 
