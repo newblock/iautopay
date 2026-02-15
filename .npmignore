@@ -23,7 +23,6 @@ test/
 # Environment configuration
 .env
 .env.*
-!.env.example
 
 # Generated OpenCode config (users should run npm run install:opencode-config)
 opencode.json
