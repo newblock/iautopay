@@ -10,6 +10,15 @@ coverage/
 *.swp
 *.swo
 
+# Package files
+*.tgz
+*.tar.gz
+
+# Lock files (npm uses package-lock.json)
+bun.lock
+yarn.lock
+pnpm-lock.yaml
+
 # Ignore dist files except iautopay-mcp.js
 dist/
 !dist/iautopay-mcp.js
