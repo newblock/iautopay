@@ -2,15 +2,6 @@
 
 iAutoPay 是一个 MCP (Model Context Protocol) 服务，使 AI 智能体能够自动支付购买费用。它目前运行在 Base 链上（由 Coinbase 运营），支持 USDC 支付。智能体可以通过它自动购买付费的 AI 相关服务和数据。
 
-## 功能特性
-
-- 🚀 **智能支付**：小额自动支付，大额需要人工批准
-- 💳 **USDC 支付**：支持基于 Base 链的 USDC 支付
-- 🔐 **安全配置**：基于环境变量的私钥配置
-- 🤖 **AI 原生**：专为 AI 智能体设计的完整 MCP 集成
-- 💸 **固定转账**：预设固定转账账户命令，直接通过命令转账
-- 🔑 **API Key 购买**：支持 GLM4.7 LLM API Key 购买服务，动态定价
-
 ## 支持的模型
 
 通过本服务购买的 API Key 可访问以下模型：
@@ -37,23 +28,7 @@ npm install -g @newblock/iautopay-mcp
 @newblock/iautopay-mcp
 ```
 
-### 方式 3：项目依赖
-
-```bash
-npm install @newblock/iautopay-mcp
-node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
-```
-
 ## 配置
-
-### 环境变量
-
-设置必需的环境变量：
-
-```bash
-# 必需：用于签名支付的钱包私钥
-export BUYER_PRIVATE_KEY="0x..."
-```
 
 ### OpenCode 配置
 
@@ -111,122 +86,23 @@ claude --mcp-config mcp-config.json
 
 ## MCP 工具
 
-### guide
-
-⭐ **首次使用？** 运行此指南了解如何使用 iAutoPay 工具和命令。
-
-**参数：**
-```json
-{}
-```
-
-**返回：**
-- 包含所有工具和命令的完整指南
-- 价格信息
-- 网络配置
-
-### info
-
-获取 iAutoPay 服务器信息（API Key 库存、价格、网络配置）。
-
-**参数：**
-```json
-{}
-```
-
-**返回：**
-```json
-{
-  "stock": 100,
-  "prices": {
-    "1day": "0.09 USDC",
-    "7days": "0.49 USDC",
-    "30days": "0.99 USDC"
-  },
-  "network": {
-    "chainId": 84532,
-    "rpcUrl": "https://sepolia.base.org"
-  }
-}
-```
-
-### buy_apikey
-
-购买 API Key，可选时长（1/7/30 天）。
-
-**参数：**
-```json
-{
-  "duration": 1
-}
-```
-
-**时长选项：**
-- `1`：1 天有效期
-- `7`：7 天有效期
-- `30`：30 天有效期
-
-**返回：**
-```json
-{
-  "apiKey": "sk-ABCD12345678901234567890",
-  "txHash": "0x4d757c7e121ad31607ee1e9c5af65bfe13b82c112fcf077638814c031ecc3a6b",
-  "payState": "paid",
-  "price": "0.09 USDC",
-  "deductedAmount": "0.09 USDC",
-  "currentBalance": "9.91 USDC"
-}
-```
-
-### pay_stablecoin
-
-使用 EIP-3009 向任意地址支付稳定币。
-
-**参数：**
-```json
-{
-  "to": "0x1234567890123456789012345678901234567890",
-  "amount": "100000"
-}
-```
-
-**金额以最小单位计**（例如：100000 = 0.1 USDC，1000000 = 1 USDC）
-
-**返回：**
-```json
-{
-  "from": "0x...",
-  "to": "0x...",
-  "amount": "0.1 USDC",
-  "txHash": "0x...",
-  "deductedAmount": "0.1 USDC",
-  "currentBalance": "9.9 USDC"
-}
-```
-
-### sync_opencode_config
-
-自动配置 opencode.json 添加快捷命令（autopay_toA、autopay_toB 等）。
-
-**参数：**
-```json
-{}
-```
-
-**返回：**
-```json
-{
-  "message": "✅ 已添加 7 个命令到 opencode.json"
-}
-```
-
-### 快捷命令
+### 快捷命令配置
 
 在 `opencode.json` 中添加这些快捷命令以更快访问：
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "autopay": {
+      "type": "local",
+      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
+      "enabled": true,
+      "environment": {
+        "BUYER_PRIVATE_KEY": "0xEVM_wallet_private_key"
+      }
+    }
+  },
   "command": {
     "autopay_toA": {
       "template": "使用 pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.01 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
@@ -244,10 +120,6 @@ claude --mcp-config mcp-config.json
       "template": "使用 buy_apikey 工具购买7天API Key，参数为：{\"duration\": 7}",
       "description": "购买7天API Key（0.49 USDC）"
     },
-    "autopay_buy_apikey_30days": {
-      "template": "使用 buy_apikey 工具购买30天API Key，参数为：{\"duration\": 30}",
-      "description": "购买30天API Key（0.99 USDC）"
-    },
     "autopay_get_info": {
       "template": "使用 info 工具获取服务器信息（API Key 库存、价格、网络配置）",
       "description": "获取iAutoPay服务器信息"
@@ -262,57 +134,72 @@ claude --mcp-config mcp-config.json
 
 运行 `sync_opencode_config` 工具可自动将这些命令添加到你的配置中。
 
-### refresh_pricing
+### Opencode 快捷命令使用示例
 
-从 API 刷新价格。如果服务器价格发生变化，请使用此工具。
+1：/autopay_guide
 
-**参数：**
-```json
-{}
-```
+输出结果：
 
-**返回：**
-```json
-{
-  "1day": "0.09 USDC",
-  "7days": "0.49 USDC",
-  "30days": "0.99 USDC"
-}
-```
+iAutoPay 使用指南
+可用工具
+- guide - 显示完整使用指南
+- info - 获取服务器信息（库存、价格、网络配置）
+- buy_apikey - 购买 API key（支持1/7天时长）
+- pay_stablecoin - 支付稳定币到指定地址
+- sync_opencode_config - 自动配置 opencode.json 快捷命令
+- refresh_pricing - 从服务器刷新价格
+快捷命令
+- autopay_toA - 快速支付 0.01 USDC
+- autopay_toB - 支付 0.1 USDC（需确认）
+- autopay_buy_apikey_1day - 购买1天API Key（0.1 USDC）
+- autopay_buy_apikey_7days - 购买7天API Key（0.9 USDC）
+- autopay_get_info - 快速获取服务器信息
+网络信息
+- Testnet: Base Sepolia (84532)
+- Mainnet: Base Mainnet (8453)
+- 当前网络: Base Sepolia (84532)
+定价
+- 1天: 0.1 USDC
+- 7天: 0.9 USDC
+环境: dev
 
-## 环境配置
+2：/autopay_toA
 
-MCP 服务器支持在 `src/server.ts` 中配置两种环境：
+输出结果：
 
-### 开发环境（Base Sepolia）
-- Chain ID: 84532
-- RPC URL: https://sepolia.base.org
-- USDC 地址: 0x036CbD53842c5426634e7929541eC2318f3dCF7e
-- Token 名称: "USDC"
+正在向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.01 USDC...
+交易哈希: 0xabc123...
+支付成功！
 
-### 生产环境（Base Mainnet）
-- Chain ID: 8453
-- RPC URL: https://mainnet.base.org
-- USDC 地址: 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
-- Token 名称: "USD Coin"
+3：/autopay_toB
 
-## 使用示例
+输出结果：
 
-### 示例 1：购买 GLM4.7 API Key
+请确认支付操作：
+- 支付金额: 0.05 USDC
+- 收款地址: 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
+- 网络: Base Sepolia (84532)
 
-```
-使用 info 工具检查库存和价格
-使用 buy_apikey 工具，参数 duration: 1
-在响应中接收 API Key
-```
+选择: 1) 确认  2) 取消
+[用户选择确认]
 
-### 示例 2：直接 USDC 支付
+正在向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.05 USDC...
+交易哈希: 0xdef456...
+支付成功！
 
-```
-使用 pay_stablecoin 工具，参数 to: "0x1a85156c2943b63febeee7883bd84a7d1cf0da0c" 和 amount: "10000"
-交易自动执行
-接收交易哈希
-```
+4：/autopay_buy_apikey_1day
+
+输出结果：
+
+购买1天API Key...
+价格: 0.09 USDC
+正在支付...
+交易哈希: 0xghi789...
+购买成功！
+
+您的API Key: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+有效期: 1天
+
 
 ## 许可证
 

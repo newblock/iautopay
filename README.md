@@ -1,15 +1,6 @@
 # iAutoPay MCP Service
 
-An MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It currently runs on Base chain (operated by Coinbase) and supports USDC payments. It can be used by intelligent agents to automatically purchase paid AI-related services and data.
-
-## Features
-
-- 🚀 **Smart Payment**: Small automatic payments, large amount manual approval
-- 💳 **USDC Payments**: Support USDC-based payments on Base chain
-- 🔐 **Secure**: Environment variable based configuration for private keys
-- 🤖 **AI-Native**: Full MCP integration designed for AI agents
-- 💸 **Fixed Transfer**: Preset fixed transfer account command, direct transfer by command
-- 🔑 **API Key Purchase**: Support GLM4.7 LLM API Key purchase service with dynamic pricing
+iAutoPay is an MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It currently runs on the Base chain (operated by Coinbase) and supports USDC payments. Agents can use it to automatically purchase paid AI-related services and data.
 
 ## Supported Models
 
@@ -37,23 +28,7 @@ npm install -g @newblock/iautopay-mcp
 @newblock/iautopay-mcp
 ```
 
-### Option 3: Project Dependency
-
-```bash
-npm install @newblock/iautopay-mcp
-node node_modules/@newblock/iautopay-mcp/dist/iautopay-mcp.js
-```
-
 ## Configuration
-
-### Environment Variables
-
-Set required environment variables:
-
-```bash
-# Required: Your wallet private key for signing payments
-export BUYER_PRIVATE_KEY="0x..."
-```
 
 ### OpenCode Configuration
 
@@ -111,122 +86,23 @@ Add to your `~/.claude/claude_desktop_config.json`:
 
 ## MCP Tools
 
-### guide
-
-⭐ **FIRST TIME?** Run this guide to learn how to use iAutoPay tools and commands.
-
-**Parameters:**
-```json
-{}
-```
-
-**Returns:**
-- Complete guide with all tools and commands
-- Pricing information
-- Network configuration
-
-### info
-
-Get iAutoPay server information (API key stock, price, network config).
-
-**Parameters:**
-```json
-{}
-```
-
-**Returns:**
-```json
-{
-  "stock": 100,
-  "prices": {
-    "1day": "0.09 USDC",
-    "7days": "0.49 USDC",
-    "30days": "0.99 USDC"
-  },
-  "network": {
-    "chainId": 84532,
-    "rpcUrl": "https://sepolia.base.org"
-  }
-}
-```
-
-### buy_apikey
-
-Purchase an API key with optional duration (1/7/30 days).
-
-**Parameters:**
-```json
-{
-  "duration": 1
-}
-```
-
-**Duration Options:**
-- `1`: 1 day validity
-- `7`: 7 days validity
-- `30`: 30 days validity
-
-**Returns:**
-```json
-{
-  "apiKey": "sk-ABCD12345678901234567890",
-  "txHash": "0x4d757c7e121ad31607ee1e9c5af65bfe13b82c112fcf077638814c031ecc3a6b",
-  "payState": "paid",
-  "price": "0.09 USDC",
-  "deductedAmount": "0.09 USDC",
-  "currentBalance": "9.91 USDC"
-}
-```
-
-### pay_stablecoin
-
-Pay stablecoin to any address using EIP-3009.
-
-**Parameters:**
-```json
-{
-  "to": "0x1234567890123456789012345678901234567890",
-  "amount": "100000"
-}
-```
-
-**Amount is in smallest units** (e.g., 100000 = 0.1 USDC, 1000000 = 1 USDC)
-
-**Returns:**
-```json
-{
-  "from": "0x...",
-  "to": "0x...",
-  "amount": "0.1 USDC",
-  "txHash": "0x...",
-  "deductedAmount": "0.1 USDC",
-  "currentBalance": "9.9 USDC"
-}
-```
-
-### sync_opencode_config
-
-Auto-configure opencode.json with quick commands (autopay_toA, autopay_toB, etc.).
-
-**Parameters:**
-```json
-{}
-```
-
-**Returns:**
-```json
-{
-  "message": "✅ 已添加 7 个命令到 opencode.json"
-}
-```
-
-### Quick Commands
+### Quick Commands Configuration
 
 Add these shortcuts to your `opencode.json` for faster access:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "autopay": {
+      "type": "local",
+      "command": ["npx", "-y", "@newblock/iautopay-mcp"],
+      "enabled": true,
+      "environment": {
+        "BUYER_PRIVATE_KEY": "0xEVM_wallet_private_key"
+      }
+    }
+  },
   "command": {
     "autopay_toA": {
       "template": "Use pay_stablecoin tool to pay 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
@@ -244,10 +120,6 @@ Add these shortcuts to your `opencode.json` for faster access:
       "template": "Use buy_apikey tool to buy 7-day API Key, params: {\"duration\": 7}",
       "description": "Buy 7-day API Key (0.49 USDC)"
     },
-    "autopay_buy_apikey_30days": {
-      "template": "Use buy_apikey tool to buy 30-day API Key, params: {\"duration\": 30}",
-      "description": "Buy 30-day API Key (0.99 USDC)"
-    },
     "autopay_get_info": {
       "template": "Use info tool to get server information (API Key stock, prices, network config)",
       "description": "Get iAutoPay server information"
@@ -262,57 +134,72 @@ Add these shortcuts to your `opencode.json` for faster access:
 
 Run `sync_opencode_config` tool to auto-add these commands to your config.
 
-### refresh_pricing
+### Opencode Quick Commands Usage Examples
 
-Refresh pricing from API. Use this if prices are changed on the server.
+1: /autopay_guide
 
-**Parameters:**
-```json
-{}
-```
+Output:
 
-**Returns:**
-```json
-{
-  "1day": "0.09 USDC",
-  "7days": "0.49 USDC",
-  "30days": "0.99 USDC"
-}
-```
+iAutoPay Usage Guide
+Available Tools
+- guide - Display complete usage guide
+- info - Get server information (stock, prices, network config)
+- buy_apikey - Buy API key (supports 1/7 day durations)
+- pay_stablecoin - Pay stablecoin to specified address
+- sync_opencode_config - Auto-configure opencode.json shortcuts
+- refresh_pricing - Refresh prices from server
+Quick Commands
+- autopay_toA - Quick pay 0.01 USDC
+- autopay_toB - Pay 0.1 USDC (requires confirmation)
+- autopay_buy_apikey_1day - Buy 1-day API Key (0.1 USDC)
+- autopay_buy_apikey_7days - Buy 7-day API Key (0.9 USDC)
+- autopay_get_info - Quick get server information
+Network Information
+- Testnet: Base Sepolia (84532)
+- Mainnet: Base Mainnet (8453)
+- Current Network: Base Sepolia (84532)
+Pricing
+- 1 day: 0.1 USDC
+- 7 days: 0.9 USDC
+Environment: dev
 
-## Environment Configuration
+2: /autopay_toA
 
-The MCP server supports two environments configured in `src/server.ts`:
+Output:
 
-### Development (Base Sepolia)
-- Chain ID: 84532
-- RPC URL: https://sepolia.base.org
-- USDC Address: 0x036CbD53842c5426634e7929541eC2318f3dCF7e
-- Token Name: "USDC"
+Paying 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c...
+Transaction hash: 0xabc123...
+Payment successful!
 
-### Production (Base Mainnet)
-- Chain ID: 8453
-- RPC URL: https://mainnet.base.org
-- USDC Address: 0x833589fcd6edb6e08f4c7c32d4f71b54bda02913
-- Token Name: "USD Coin"
+3: /autopay_toB
 
-## Example Workflows
+Output:
 
-### Example 1: Purchase GLM4.7 API Key
+Please confirm payment:
+- Amount: 0.05 USDC
+- Recipient: 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
+- Network: Base Sepolia (84532)
 
-```
-Use info tool to check stock and pricing
-Use buy_apikey tool with duration: 1
-Receive API key in response
-```
+Select: 1) Confirm  2) Cancel
+[User selects confirm]
 
-### Example 2: Direct USDC Payment
+Paying 0.05 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c...
+Transaction hash: 0xdef456...
+Payment successful!
 
-```
-Use pay_stablecoin tool with to: "0x1a85156c2943b63febeee7883bd84a7d1cf0da0c" and amount: "10000"
-Transaction executes automatically
-Receive transaction hash
-```
+4: /autopay_buy_apikey_1day
+
+Output:
+
+Purchasing 1-day API Key...
+Price: 0.09 USDC
+Processing payment...
+Transaction hash: 0xghi789...
+Purchase successful!
+
+Your API Key: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Valid for: 1 day
+
 
 ## License
 
