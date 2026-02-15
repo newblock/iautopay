@@ -217,6 +217,8 @@ iAutoPay 使用指南
 您的API Key: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 有效期: 1天
 
+👉 查看 [LLM服务指南](doc/LLM_SERVICES_GUIDE.md) 了解如何使用 API Key 访问支持的模型
+
 
 ## 许可证
 
