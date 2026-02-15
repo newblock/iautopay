@@ -2,6 +2,13 @@
 
 iAutoPay 是一个 MCP (Model Context Protocol) 服务，使 AI 智能体能够自动支付购买费用。它目前运行在 Base 链上（由 Coinbase 运营），支持 USDC 支付。智能体可以通过它自动购买付费的 AI 相关服务和数据。
 
+## 支持的模型
+
+通过此服务购买的 API Key 可以访问：
+- `z-ai/glm4.7` (支持思维链的 GLM4.7)
+- `minimaxai/minimax-m2.1` (MiniMax 通用大语言模型)
+- `deepseek-ai/deepseek-v3.2` (支持思维链的 DeepSeek)
+
 ## 安装
 
 ### 方式 1：npx（推荐）
@@ -22,27 +29,6 @@ npm install -g @newblock/iautopay-mcp
 ```
 
 ## 配置
-
-> **关于加密货币和钱包的基础知识**
->
-> 在使用 iAutoPay 之前，你需要了解一些基本的加密货币概念：
->
-> - **钱包私钥**：类似于密码的密钥，用于签名交易。**务必妥善保管，不要泄露给任何人！**
-> - **测试网**：用于测试的网络，测试币可以在水龙头免费获取
-> - **主网**：正式的网络，需要真实资金
-> - **USDC**：一种稳定币，价值与美元挂钩（1 USDC ≈ 1 USD）
->
-> 获取测试币的方法：
-> 1. 访问 Base Sepolia 水龙头：https://sepoliafaucet.com/
-> 2. 输入你的钱包地址
-> 3. 领取免费的测试 USDC
->
-> 安全提示：
-> - 永远不要分享你的私钥
-> - 在主网使用前，先在测试网充分测试
-> - 建议使用专门的钱包，不要存放大量资金
->
-> 更多区块链基础知识，请参考：https://www.wtf.academy/zh/course/ethers101/HelloVitalik
 
 ### OpenCode 配置
 
@@ -97,6 +83,29 @@ claude --mcp-config mcp-config.json
   }
 }
 ```
+
+> **关于稳定币和钱包的基础知识**
+>
+> 在使用 iAutoPay 之前，你需要了解一些基本的加密货币概念：
+>
+> - **钱包私钥**：类似于密码的密钥，用于签名交易。**务必妥善保管，不要泄露给任何人！**
+> - **测试网**：用于测试的网络，测试币可以在水龙头免费获取
+> - **主网**：正式的网络，需要真实资金
+> - **USDC**：一种稳定币，价值与美元挂钩（1 USDC ≈ 1 USD）
+>
+> 获取测试币的方法：
+> 1. 访问 Base Sepolia 水龙头：https://sepoliafaucet.com/
+> 2. 输入你的钱包地址
+> 3. 领取免费的测试 USDC
+>
+> 安全提示：
+> - 永远不要分享你的私钥
+> - 在主网使用前，先在测试网充分测试
+> - 建议使用专门的钱包，不要存放大量资金
+>
+> 更多区块链基础知识，请参考：https://www.wtf.academy/zh/course/ethers101/HelloVitalik
+
+### opencode autopay 命令加载成功效果
 
 ![MCP使用命令截图](doc/opencode_cmd.jpg)
 
