@@ -6,8 +6,8 @@
 
 通过本服务购买的 API Key 可访问以下模型：
 
-- `z-ai/glm4.7` - GLM-4.7 with thinking chain support (128k context, 16384 output)
 - `z-ai/glm5` - GLM-5 with thinking chain support (128k context, 16384 output)
+- `z-ai/glm4.7` - GLM-4.7 with thinking chain support (128k context, 16384 output)
 - `moonshotai/kimi-k2.5` - Kimi K2.5 with long context support (200k context, 16384 output)
 
 ## API Key Pricing
@@ -74,17 +74,17 @@ sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         "apiKey": "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       },
       "models": {
-        "GLM-4.7": {
-          "id": "z-ai/glm4.7",
-          "name": "GLM-4.7",
+        "GLM-5": {
+          "id": "z-ai/glm5",
+          "name": "GLM-5",
           "description": "由智谱AI训练的大型语言模型，支持思维链推理",
           "tool_call": true,
           "temperature": true,
           "reasoning": true
         },
-        "GLM-5": {
-          "id": "z-ai/glm5",
-          "name": "GLM-5",
+        "GLM-4.7": {
+          "id": "z-ai/glm4.7",
+          "name": "GLM-4.7",
           "description": "由智谱AI训练的大型语言模型，支持思维链推理",
           "tool_call": true,
           "temperature": true,
@@ -121,17 +121,17 @@ curl -X POST https://ipaynapi.gpuart.cn/v1/chat/completions \
 
 ## Model Features
 
-### GLM-4.7 (z-ai/glm4.7)
-- 支持思维链推理
-- 128k 上下文长度
-- 16384 输出长度
-- 强大的推理能力，适合复杂任务
-
 ### GLM-5 (z-ai/glm5)
 - 支持思维链推理
 - 128k 上下文长度
 - 16384 输出长度
 - 最新版本，提升的多模态能力
+
+### GLM-4.7 (z-ai/glm4.7)
+- 支持思维链推理
+- 128k 上下文长度
+- 16384 输出长度
+- 强大的推理能力，适合复杂任务
 
 ### Kimi K2.5 (moonshotai/kimi-k2.5)
 - 支持思维链推理
