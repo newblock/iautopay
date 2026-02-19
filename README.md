@@ -1,6 +1,6 @@
 # iAutoPay MCP Service
 
-iAutoPay is an MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It currently runs on the Base chain (operated by Coinbase) and supports USDC payments. Agents can use it to automatically purchase paid AI-related services and data.
+iAutoPay is an MCP (Model Context Protocol) service that enables AI agents to automatically pay for purchases. It supports all EVM-compatible public chains and USDC payments. Agents can use it to automatically purchase paid AI-related services and data.
 
 ## Installation
 
