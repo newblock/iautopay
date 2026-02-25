@@ -1,0 +1,22 @@
+{
+  "defaultPayments": {
+    "accountA": {
+      "address": "0x1a85156c2943b63febeee7883bd84a7d1cf0da0c",
+      "amount": "0.01",
+      "amountInUnits": "10000",
+      "requireConfirmation": false
+    },
+    "accountB": {
+      "address": "0x1a85156c2943b63febeee7883bd84a7d1cf0da0c",
+      "amount": "0.05",
+      "amountInUnits": "50000",
+      "requireConfirmation": true
+    }
+  },
+  "apiKeyPrices": {
+    "1day": "0.09",
+    "7days": "0.49"
+  },
+  "requireConfirmation": true,
+  "confirmationThreshold": "0.01"
+}
