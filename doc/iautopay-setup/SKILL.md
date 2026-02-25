@@ -32,7 +32,7 @@ node scripts/setup-opencode.js
 Script will:
 - Detect or create opencode.json in current directory
 - Add autopay MCP configuration
-- Add 6 quick commands (toA, toB, buy_apikey_1day/7days, get_info, guide)
+- Add 4 quick commands (buy_apikey_1day/7days, get_info, guide)
 - Prompt for BUYER_PRIVATE_KEY (hidden input)
 
 ### Claude CLI
@@ -67,13 +67,9 @@ See references/ for complete configuration examples:
 
 After setup, these commands are available:
 - `/autopay_guide` - Show usage guide
-- `/autopay_toA` - Pay 0.01 USDC (quick)
-- `/autopay_toB` - Pay 0.05 USDC (with confirmation)
 - `/autopay_buy_apikey_1day` - Buy 1-day API Key (0.09 USDC)
 - `/autopay_buy_apikey_7days` - Buy 7-day API Key (0.49 USDC)
 - `/autopay_get_info` - Get server information
-
-Run `sync_opencode_config` tool to auto-add commands.
 
 ## Verification
 
@@ -106,9 +102,7 @@ claude mcp get autopay # Should show server details
 When properly configured:
 - `guide` - Display complete usage guide
 - `info` - Get server info (stock, prices, network)
-- `buy_apikey` - Buy API key (1/7 days)
-- `pay_stablecoin` - Pay USDC to any address
-- `sync_opencode_config` - Auto-configure opencode shortcuts
+- `buy_apikey` - Buy API key (1/7/30 days)
 - `refresh_pricing` - Refresh prices from server
 
 ## Troubleshooting

@@ -8,8 +8,6 @@ Configuration is automatically generated at installation via `opencode.json`.
 
 Available commands:
 - `/autopay_guide` - Show iAutoPay usage guide
-- `/autopay_toA` - Quick payment of 0.01 USDC
-- `/autopay_toB` - Quick payment of 0.05 USDC (with confirmation)
 - `/autopay_buy_apikey_1day` - Buy 1-day API Key (0.09 USDC)
 - `/autopay_buy_apikey_7days` - Buy 7-day API Key (0.49 USDC)
 - `/autopay_get_info` - Get iAutoPay server information
@@ -68,9 +66,7 @@ When using Claude CLI with MCP enabled, the following tools are available:
 
 - `guide` - Display complete iAutoPay usage guide
 - `info` - Get server information (stock, prices, network config)
-- `buy_apikey` - Buy API key (supports 1/7 day durations)
-- `pay_stablecoin` - Pay stablecoin to specified address
-- `sync_opencode_config` - Auto-configure opencode.json shortcuts
+- `buy_apikey` - Buy API key (supports 1/7/30 day durations)
 - `refresh_pricing` - Refresh prices from server
 
 ## Usage Examples

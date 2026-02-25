@@ -77,8 +77,6 @@ bash scripts/setup-claude-desktop.sh
 After setup, these commands are available:
 
 - `/autopay_guide` - Show usage guide
-- `/autopay_toA` - Pay 0.01 USDC (quick)
-- `/autopay_toB` - Pay 0.05 USDC (with confirmation)
 - `/autopay_buy_apikey_1day` - Buy 1-day API Key
 - `/autopay_buy_apikey_7days` - Buy 7-day API Key
 - `/autopay_get_info` - Get server information
@@ -89,9 +87,7 @@ When properly configured, the iAutoPay MCP provides these tools:
 
 - `guide` - Display complete usage guide
 - `info` - Get server info (stock, prices, network)
-- `buy_apikey` - Buy API key (1/7 days)
-- `pay_stablecoin` - Pay USDC to any address
-- `sync_opencode_config` - Auto-configure opencode shortcuts
+- `buy_apikey` - Buy API key (1/7/30 days)
 - `refresh_pricing` - Refresh prices from server
 
 ## Security

@@ -548,13 +548,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         { name: "guide", description: "显示完整使用指南" },
         { name: "info", description: "获取服务器信息（库存、价格、网络配置）" },
         { name: "buy_apikey", description: "购买 API key（支持1/7/30天时长）" },
-        { name: "pay_stablecoin", description: "支付稳定币到指定地址" },
-        { name: "sync_opencode_config", description: "自动配置 opencode.json 快捷命令" },
         { name: "refresh_pricing", description: "从服务器刷新价格" }
       ],
       commands: [
-        { name: "autopay_toA", description: "快速支付 0.01 USDC" },
-        { name: "autopay_toB", description: "支付 0.05 USDC（需确认）" },
         { name: "autopay_buy_apikey_1day", description: `购买1天API Key（${pricing["1day"]}）` },
         { name: "autopay_buy_apikey_7days", description: `购买7天API Key（${pricing["7days"]}）` },
         { name: "autopay_buy_apikey_30days", description: `购买30天API Key（${pricing["30days"]}）` },

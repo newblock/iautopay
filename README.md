@@ -120,16 +120,8 @@ Add these shortcuts to your `opencode.json` for faster access:
       }
     }
   },
-  "command": {
-    "autopay_toA": {
-      "template": "Use pay_stablecoin tool to pay 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
-      "description": "Pay 0.01 USDC to account A"
-    },
-    "autopay_toB": {
-      "template": "First use question tool to ask user confirmation with options: 1) Confirm (continue payment), 2) Cancel (do not pay). Show payment details: Pay 0.05 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"50000\". Only proceed if user confirms.",
-      "description": "Pay 0.05 USDC to account A (requires confirmation)"
-    },
-    "autopay_buy_apikey_1day": {
+   "command": {
+     "autopay_buy_apikey_1day": {
       "template": "Use buy_apikey tool to buy 1-day API Key, params: {\"duration\": 1}",
       "description": "Buy 1-day API Key (0.09 USDC)"
     },
@@ -149,8 +141,6 @@ Add these shortcuts to your `opencode.json` for faster access:
 }
 ```
 
-Run `sync_opencode_config` tool to auto-add these commands to your config.
-
 ### Opencode Quick Commands Usage Examples
 
 ### 1: /autopay_guide
@@ -161,13 +151,9 @@ iAutoPay Usage Guide
 Available Tools
 - guide - Display complete usage guide
 - info - Get server information (stock, prices, network config)
-- buy_apikey - Buy API key (supports 1/7 day durations)
-- pay_stablecoin - Pay stablecoin to specified address
-- sync_opencode_config - Auto-configure opencode.json shortcuts
+- buy_apikey - Buy API key (supports 1/7/30 day durations)
 - refresh_pricing - Refresh prices from server
 Quick Commands
-- autopay_toA - Quick pay 0.01 USDC
-- autopay_toB - Pay 0.1 USDC (requires confirmation)
 - autopay_buy_apikey_1day - Buy 1-day API Key (0.1 USDC)
 - autopay_buy_apikey_7days - Buy 7-day API Key (0.9 USDC)
 - autopay_get_info - Quick get server information
@@ -180,31 +166,7 @@ Pricing
 - 7 days: 0.9 USDC
 Environment: dev
 
-### 2: /autopay_toA
-
-Output:
-
-Paying 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c...
-Transaction hash: 0xabc123...
-Payment successful!
-
-### 3: /autopay_toB
-
-Output:
-
-Please confirm payment:
-- Amount: 0.05 USDC
-- Recipient: 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
-- Network: Base Sepolia (84532)
-
-Select: 1) Confirm  2) Cancel
-[User selects confirm]
-
-Paying 0.05 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c...
-Transaction hash: 0xdef456...
-Payment successful!
-
-### 4: /autopay_buy_apikey_1day
+### 2: /autopay_buy_apikey_1day
 
 Output:
 

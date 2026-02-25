@@ -120,16 +120,8 @@ claude --mcp-config mcp-config.json
       }
     }
   },
-  "command": {
-    "autopay_toA": {
-      "template": "使用 pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.01 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
-      "description": "支付0.01 USDC给A账户"
-    },
-    "autopay_toB": {
-      "template": "首先使用 question 工具询问用户确认，选项包括：1) 确认（继续支付），2) 取消（不进行支付）。显示支付详情：向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.05 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"50000\"。只有用户选择确认时才继续支付。",
-      "description": "支付0.05 USDC给A账户（需要确认）"
-    },
-    "autopay_buy_apikey_1day": {
+   "command": {
+     "autopay_buy_apikey_1day": {
       "template": "使用 buy_apikey 工具购买1天API Key，参数为：{\"duration\": 1}",
       "description": "购买1天API Key（0.09 USDC）"
     },
@@ -149,8 +141,6 @@ claude --mcp-config mcp-config.json
 }
 ```
 
-运行 `sync_opencode_config` 工具可自动将这些命令添加到你的配置中。
-
 ### Opencode 快捷命令使用示例
 
 ### 1：/autopay_guide
@@ -161,13 +151,9 @@ iAutoPay 使用指南
 可用工具
 - guide - 显示完整使用指南
 - info - 获取服务器信息（库存、价格、网络配置）
-- buy_apikey - 购买 API key（支持1/7天时长）
-- pay_stablecoin - 支付稳定币到指定地址
-- sync_opencode_config - 自动配置 opencode.json 快捷命令
+- buy_apikey - 购买 API key（支持1/7/30天时长）
 - refresh_pricing - 从服务器刷新价格
 快捷命令
-- autopay_toA - 快速支付 0.01 USDC
-- autopay_toB - 支付 0.1 USDC（需确认）
 - autopay_buy_apikey_1day - 购买1天API Key（0.1 USDC）
 - autopay_buy_apikey_7days - 购买7天API Key（0.9 USDC）
 - autopay_get_info - 快速获取服务器信息
@@ -180,31 +166,7 @@ iAutoPay 使用指南
 - 7天: 0.9 USDC
 环境: dev
 
-### 2：/autopay_toA
-
-输出结果：
-
-正在向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.01 USDC...
-交易哈希: 0xabc123...
-支付成功！
-
-### 3：/autopay_toB
-
-输出结果：
-
-请确认支付操作：
-- 支付金额: 0.05 USDC
-- 收款地址: 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c
-- 网络: Base Sepolia (84532)
-
-选择: 1) 确认  2) 取消
-[用户选择确认]
-
-正在向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.05 USDC...
-交易哈希: 0xdef456...
-支付成功！
-
-### 4：/autopay_buy_apikey_1day
+### 2：/autopay_buy_apikey_1day
 
 输出结果：
 

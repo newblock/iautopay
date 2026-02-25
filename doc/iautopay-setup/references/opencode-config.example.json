@@ -11,14 +11,6 @@
     }
   },
   "command": {
-    "autopay_toA": {
-      "template": "Use pay_stablecoin tool to pay 0.01 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
-      "description": "Pay 0.01 USDC to account A"
-    },
-    "autopay_toB": {
-      "template": "First use question tool to ask user confirmation with options: 1) Confirm (continue payment), 2) Cancel (do not pay). Show payment details: Pay 0.05 USDC to 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c, params: to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"50000\". Only proceed if user confirms.",
-      "description": "Pay 0.05 USDC to account A (requires confirmation)"
-    },
     "autopay_buy_apikey_1day": {
       "template": "Use buy_apikey tool to buy 1-day API Key, params: {\"duration\": 1}",
       "description": "Buy 1-day API Key (0.09 USDC)"
