@@ -78,10 +78,10 @@ const paymentRequirementsSchema = z.object({
   price: z.string().min(1),
   payee: z.string().optional(),
 });
-const payStablecoinInput = z.object({
-  to: z.string().min(1),
-  amount: z.string().min(1),
-});
+// const payStablecoinInput = z.object({
+//   to: z.string().min(1),
+//   amount: z.string().min(1),
+// });
 const buyApikeyInput = z.object({
   duration: z.number().optional().refine(val => !val || [1, 7, 30].includes(val), {
     message: "Duration must be 1, 7, or 30 days"
@@ -89,7 +89,7 @@ const buyApikeyInput = z.object({
 });
 const getInfoInput = z.object({});
 const guideInput = z.object({});
-const syncOpencodeConfigInput = z.object({});
+// const syncOpencodeConfigInput = z.object({});
 const refreshPricingInput = z.object({});
 
 // ============================================================================
@@ -404,16 +404,16 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         description: "Purchase an API key with optional duration (1/7/30 days). Prices: 1 day=0.9 USDC, 7 days=4.9 USDC, 30 days=9.9 USDC. Run 'info' first to confirm stock.",
         inputSchema: zodToJsonSchema(buyApikeyInput),
       },
-      {
-        name: "pay_stablecoin",
-        description: "Pay stablecoin to any address using EIP-3009. Amount is in smallest unit (e.g., 100000 = 0.1 USDC).",
-        inputSchema: zodToJsonSchema(payStablecoinInput),
-      },
-      {
-        name: "sync_opencode_config",
-        description: "Auto-configure opencode.json with quick commands (autopay_toA, autopay_toB, etc.)",
-        inputSchema: zodToJsonSchema(syncOpencodeConfigInput),
-      },
+      // {
+      //   name: "pay_stablecoin",
+      //   description: "Pay stablecoin to any address using EIP-3009. Amount is in smallest unit (e.g., 100000 = 0.1 USDC).",
+      //   inputSchema: zodToJsonSchema(payStablecoinInput),
+      // },
+      // {
+      //   name: "sync_opencode_config",
+      //   description: "Auto-configure opencode.json with quick commands (autopay_toA, autopay_toB, etc.)",
+      //   inputSchema: zodToJsonSchema(syncOpencodeConfigInput),
+      // },
       {
         name: "refresh_pricing",
         description: "Refresh pricing from API. Use this if prices are changed on the server.",
@@ -426,21 +426,21 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
  
-  if (name === "pay_stablecoin") {
-    const parsed = payStablecoinInput.parse(args);
+  // if (name === "pay_stablecoin") {
+  //   const parsed = payStablecoinInput.parse(args);
     
-    try {
-      const result = await payStablecoin({
-        to: parsed.to,
-        amount: parsed.amount,
-        asset: CURRENT_USDC,
-        isTestnet: (CUR_ENV as string) === 'dev',
-      });
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
-    } catch (error) {
-      throw error;
-    }
-  }
+  //   try {
+  //     const result = await payStablecoin({
+  //       to: parsed.to,
+  //       amount: parsed.amount,
+  //       asset: CURRENT_USDC,
+  //       isTestnet: (CUR_ENV as string) === 'dev',
+  //     });
+  //     return { content: [{ type: "text", text: JSON.stringify(result) }] };
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   if (name === "buy_apikey") {
     const parsed = buyApikeyInput.parse(args);
@@ -572,86 +572,86 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     return { content: [{ type: "text", text: JSON.stringify(toolsData, null, 2) }] };
   }
 
-  if (name === "sync_opencode_config") {
-    const parsed = syncOpencodeConfigInput.parse(args);
+  // if (name === "sync_opencode_config") {
+  //   const parsed = syncOpencodeConfigInput.parse(args);
     
-    try {
-      const fs = await import('fs/promises');
-      const opencodePath = '/Users/michael/opc/proj/iautopay/opencode.json';
+  //   try {
+  //     const fs = await import('fs/promises');
+  //     const opencodePath = '/Users/michael/opc/proj/iautopay/opencode.json';
       
-      const opencodeData = JSON.parse(await fs.readFile(opencodePath, 'utf-8'));
+  //     const opencodeData = JSON.parse(await fs.readFile(opencodePath, 'utf-8'));
       
-      const pricing = CACHED_PRICING || {
-        "1day": "0.09 USDC",
-        "7days": "0.49 USDC",
-        "30days": "0.99 USDC"
-      };
+  //     const pricing = CACHED_PRICING || {
+  //       "1day": "0.09 USDC",
+  //       "7days": "0.49 USDC",
+  //       "30days": "0.99 USDC"
+  //     };
       
-      const requiredCommands = {
-        "autopay_toA": {
-          "template": "使用 pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.01 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
-          "description": "支付0.01 USDC给A账户"
-        },
-        "autopay_toB": {
-          "template": "首先使用 question 工具询问用户确认，选项包括：1) 确认（继续支付），2) 取消（不进行支付）。显示支付详情：向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.05 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"50000\"。只有用户选择确认时才继续支付。",
-          "description": "支付0.05 USDC给A账户（需要确认）"
-        },
-        "autopay_buy_apikey_1day": {
-          "template": "使用 buy_apikey 工具购买1天API Key，参数为：{\"duration\": 1}",
-          "description": `购买1天API Key（${pricing["1day"]}）`
-        },
-        "autopay_buy_apikey_7days": {
-          "template": "使用 buy_apikey 工具购买7天API Key，参数为：{\"duration\": 7}",
-          "description": `购买7天API Key（${pricing["7days"]}）`
-        },
-        "autopay_buy_apikey_30days": {
-          "template": "使用 buy_apikey 工具购买30天API Key，参数为：{\"duration\": 30}",
-          "description": `购买30天API Key（${pricing["30days"]}）`
-        },
-        "autopay_get_info": {
-          "template": "使用 info 工具获取服务器信息（API Key 库存、价格、网络配置）",
-          "description": "获取iAutoPay服务器信息"
-        },
-        "autopay_guide": {
-          "template": "使用 guide 工具显示 iAutoPay 使用指南",
-          "description": "显示iAutoPay使用指南"
-        }
-      };
+  //     const requiredCommands = {
+  //       "autopay_toA": {
+  //         "template": "使用 pay_stablecoin 工具向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.01 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"10000\"",
+  //         "description": "支付0.01 USDC给A账户"
+  //       },
+  //       "autopay_toB": {
+  //         "template": "首先使用 question 工具询问用户确认，选项包括：1) 确认（继续支付），2) 取消（不进行支付）。显示支付详情：向 0x1a85156c2943b63febeee7883bd84a7d1cf0da0c 支付 0.05 USDC，参数为：to=\"0x1a85156c2943b63febeee7883bd84a7d1cf0da0c\", amount=\"50000\"。只有用户选择确认时才继续支付。",
+  //         "description": "支付0.05 USDC给A账户（需要确认）"
+  //       },
+  //       "autopay_buy_apikey_1day": {
+  //         "template": "使用 buy_apikey 工具购买1天API Key，参数为：{\"duration\": 1}",
+  //         "description": `购买1天API Key（${pricing["1day"]}）`
+  //       },
+  //       "autopay_buy_apikey_7days": {
+  //         "template": "使用 buy_apikey 工具购买7天API Key，参数为：{\"duration\": 7}",
+  //         "description": `购买7天API Key（${pricing["7days"]}）`
+  //       },
+  //       "autopay_buy_apikey_30days": {
+  //         "template": "使用 buy_apikey 工具购买30天API Key，参数为：{\"duration\": 30}",
+  //         "description": `购买30天API Key（${pricing["30days"]}）`
+  //       },
+  //       "autopay_get_info": {
+  //         "template": "使用 info 工具获取服务器信息（API Key 库存、价格、网络配置）",
+  //         "description": "获取iAutoPay服务器信息"
+  //       },
+  //       "autopay_guide": {
+  //         "template": "使用 guide 工具显示 iAutoPay 使用指南",
+  //         "description": "显示iAutoPay使用指南"
+  //       }
+  //     };
       
-      let addedCommands: string[] = [];
-      let updatedCommands: string[] = [];
+  //     let addedCommands: string[] = [];
+  //     let updatedCommands: string[] = [];
       
-      if (!opencodeData.command) {
-        opencodeData.command = {};
-      }
+  //     if (!opencodeData.command) {
+  //       opencodeData.command = {};
+  //     }
       
-      for (const [key, value] of Object.entries(requiredCommands)) {
-        if (!opencodeData.command[key]) {
-          opencodeData.command[key] = value;
-          addedCommands.push(key);
-        }
-      }
+  //     for (const [key, value] of Object.entries(requiredCommands)) {
+  //       if (!opencodeData.command[key]) {
+  //         opencodeData.command[key] = value;
+  //         addedCommands.push(key);
+  //       }
+  //     }
       
-      if (addedCommands.length > 0) {
-        await fs.writeFile(opencodePath, JSON.stringify(opencodeData, null, 2), 'utf-8');
-        return { 
-          content: [{ 
-            type: "text", 
-            text: `✅ 已添加 ${addedCommands.length} 个命令到 opencode.json:\n${addedCommands.map(c => `  - ${c}`).join('\n')}` 
-          }] 
-        };
-      } else {
-        return { 
-          content: [{ 
-            type: "text", 
-            text: "✅ 所有 autopay_ 命令已存在，无需更新" 
-          }] 
-        };
-      }
-    } catch (error) {
-      throw new Error(`同步配置失败: ${error}`);
-    }
-  }
+  //     if (addedCommands.length > 0) {
+  //       await fs.writeFile(opencodePath, JSON.stringify(opencodeData, null, 2), 'utf-8');
+  //       return { 
+  //         content: [{ 
+  //           type: "text", 
+  //           text: `✅ 已添加 ${addedCommands.length} 个命令到 opencode.json:\n${addedCommands.map(c => `  - ${c}`).join('\n')}` 
+  //         }] 
+  //       };
+  //     } else {
+  //       return { 
+  //         content: [{ 
+  //           type: "text", 
+  //           text: "✅ 所有 autopay_ 命令已存在，无需更新" 
+  //         }] 
+  //       };
+  //     }
+  //   } catch (error) {
+  //     throw new Error(`同步配置失败: ${error}`);
+  //   }
+  // }
 
   if (name === "refresh_pricing") {
     const parsed = refreshPricingInput.parse(args);
