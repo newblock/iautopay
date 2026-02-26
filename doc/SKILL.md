@@ -330,7 +330,8 @@ def buy_apikey(duration: int, private_key: str = None):
     
     payee_address = info['payee']
     usdc_address = info['asset']
-    price_in_usdc = info['prices'][f'{duration}daysUsdc']
+    price_field = f'{duration}dayUsdc' if duration == 1 else f'{duration}daysUsdc'
+    price_in_usdc = info['prices'][price_field]
     
     # USDC uses 6 decimals
     amount = int(price_in_usdc * 10 ** 6)
@@ -512,7 +513,8 @@ async function buyApikey(duration: number, privateKey: `0x${string}` | undefined
   
   const payeeAddress = info.payee as `0x${string}`;
   const usdcAddress = info.asset as `0x${string}`;
-  const priceInUsdc = info.prices[`${duration}daysUsdc`];
+  const priceField = duration === 1 ? `${duration}dayUsdc` : `${duration}daysUsdc`;
+  const priceInUsdc = info.prices[priceField];
   
   // USDC uses 6 decimals
   const amount = parseUnits(priceInUsdc.toString(), 6);
