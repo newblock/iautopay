@@ -56,7 +56,7 @@ skill_dir.mkdir(parents=True, exist_ok=True)
 # Download SKILL.md from GitHub
 import urllib.request
 import urllib.error
-skill_url = 'https://raw.githubusercontent.com/newblock/iautopay/main/doc/SKILL.md'
+skill_url = 'https://raw.githubusercontent.com/newblock/iautopay/main/skill/oclaw/skill/SKILL.md'
 try:
     urllib.request.urlretrieve(skill_url, skill_dir / 'SKILL.md')
     print(f'  ✓ Installed SKILL.md to {skill_dir}')
