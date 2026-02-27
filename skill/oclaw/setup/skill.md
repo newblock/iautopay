@@ -108,3 +108,9 @@ cat ~/.openclaw/autopay_address.txt
 curl https://apipaymcp.okart.fun/info
 ```
 
+## Security Best Practices
+
+1. **Never share your private key** - It's stored in OpenClaw config environment variables
+2. **Keep your wallet address** - You'll need it for receiving funds
+3. **If you lose your wallet address**, run `python scripts/get_address.py` to retrieve it from your private key
+
